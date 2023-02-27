@@ -14,5 +14,16 @@ class League
         $result = $this->conn->query($sql);
         return $result;
     }
+
+    function getLeagueByName($name)
+    {
+        $sql = "SELECT id, name, id_trustee
+        FROM league
+        WHERE name = '" . $name . "';";
+
+        return $sql;
+
+    }
+
 }
 ?>
