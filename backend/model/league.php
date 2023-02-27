@@ -33,5 +33,13 @@ class League
         return $sql;
     }
 
+    function getLeagueByTrustee($id_trustee)
+    {
+        $sql = "SELECT id, name, id_trustee
+        FROM league
+        where id_trustee = '" . $id_trustee . "';";
+        return $sql;
+    }
+
 }
 ?>
