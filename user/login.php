@@ -33,10 +33,13 @@
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (!empty($_POST['nickname']) && !empty($_POST['password'])) { //se la variabile mail o password che devono essere inviate non sono vuote all'ora si invia
+        
+                $pw = hash("sha256", $_POST['password']);
+
                 $data = array(
                     //Immetto i dati all'interno di data
                     "nickname" => $_POST['nickname'],
-                    "pw" => $_POST['password'],
+                    "pw" => $pw,
                 );
 
                 if (login($data) == -1) {

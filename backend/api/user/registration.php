@@ -14,10 +14,8 @@ if (empty($data->nickname) || empty($data->pw)) {
 $db = new Database();
 $db_conn = $db->connect();
 $user = new User($db_conn);
-$hash = $data->password;
-$password = hash("sha256", $hash);
 
-if ($user->registration($data->nickname, $password) == true) {
+if ($user->registration($data->nickname, $data->pw) == true) {
     echo json_encode(["message" => "1"]);
 } else {
     echo json_encode(["message" => "-1"]);
