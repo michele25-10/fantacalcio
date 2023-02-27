@@ -1,5 +1,6 @@
 <?php
-class Match{
+class matches
+{
 
 }
 ?>

@@ -15,7 +15,6 @@ class Database
     public function connect() //effettua la connessione al server
 
     {
-        echo "ciao";
         try {
             $this->conn = new mysqli($this->server_local, $this->user_local, $this->passwd_local, $this->db_local, $this->port);
         }
@@ -23,7 +22,6 @@ class Database
         catch (Exception $ex) {
             die("Error connecting to database $ex\n\n");
         }
-        var_dump($this->conn);
         return $this->conn;
     }
 }
