@@ -7,19 +7,11 @@ include_once dirname(__FILE__) . '/../../common/connect.php';
 include_once dirname(__FILE__) . '/../../model/league.php';
 include_once dirname(__FILE__) . '/../../model/base.php';
 
-if (!isset($_GET['name']) || ($name = explode("?name=", $_SERVER['REQUEST_URI'])[1]) == null) {
-    http_response_code(400);
-    echo json_encode(["message" => "Non ci sono abbastanza campi per la ricerca"]);
-    die();
-}
-
-//$user = explode("?user=" , $_SERVER['REQUEST_URI'])[1];
-
 $dtbase = new Database();
 $sb_conn = $dtbase->connect();
 
 $league = new League($db_conn);
-$query = $league->getLeagueByName($name);
+$query = $league->getArchiveLeague();
 $result = $conn->query($query);
 
 if (mysqli_num_rows($result) > 0) {
@@ -37,7 +29,7 @@ if (mysqli_num_rows($result) > 0) {
     echo (json_encode($leagues_arr, JSON_PRETTY_PRINT));
 } else {
     http_response_code(400);
-    echo json_encode(["message" => "Non sono state trovate leghe con quel nome"]);
+    echo json_encode(["message" => "Non sono state trovate leghe"]);
 }
 
 

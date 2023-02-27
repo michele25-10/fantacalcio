@@ -22,7 +22,15 @@ class League
         WHERE name = '" . $name . "';";
 
         return $sql;
+    }
 
+    function getArchiveLeague()
+    {
+        $sql = "SELECT id, name, id_trustee
+        FROM league
+        WHERE 1=1; ";
+
+        return $sql;
     }
 
 }
