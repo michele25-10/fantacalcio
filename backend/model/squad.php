@@ -16,5 +16,12 @@ class Squad
                 ";
         return $sql;
     }
+
+    function createSquad($name, $id_user)
+    {
+        $sql = "INSERT INTO fantacalcio.squad (name, id_user, score)
+        VALUES ('" . $name . "','" . $id_user . "', 0); ";
+        return $sql;
+    }
 }
 ?>
