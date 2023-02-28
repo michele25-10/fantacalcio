@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-primary-subtle" data-bs-theme="primary">
+    <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold" href="homePage.php">
                 <img src="../assets/img/logo.svg" alt="Logo" width="30" height="24"

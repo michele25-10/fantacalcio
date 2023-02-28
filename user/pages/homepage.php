@@ -23,11 +23,66 @@ if (empty($_SESSION['user_id'])) {
 <body>
     <?php require_once(__DIR__ . '\navbar.php'); ?>
 
-
+    <div class="container" style="padding: 30px 10px; ">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-2">
+            <div class="col" style="padding: 10px 0px;">
+                <div class="card w-50 h-100 bg-primary-subtle">
+                    <div class="card-body">
+                        <h5 class="card-title">Lega</h5>
+                        <p class="card-text">Iscriviti o crea la tua prima lega, potrai giocare in compagnia dei
+                            tuoi amici!<br>
+                            Sfidali e scoprirai chi è quello che di calcio in fin dei conti ne sa di più.
+                        </p>
+                        <a href="#" class="btn btn-outline-success">Iscriviti</a>
+                        <a href="#" class="btn btn-outline-success">Crea</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col" style="padding: 10px 0px;">
+                <div class="card w-50 h-100 bg-primary-subtle">
+                    <div class="card-body">
+                        <h5 class="card-title">Squadra</h5>
+                        <p class="card-text">Visualizza la tua squadra, se non la hai neancora creata, iscriviti ad una
+                            lega ed inizia a giocare!
+                            <br>
+                            Che Aspetti inizia ora?!
+                        </p>
+                        <a href="#" class="btn btn-outline-success">Visualizza</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col" style="padding: 10px 0px;">
+                <div class="card w-50 h-100 bg-primary-subtle">
+                    <div class="card-body">
+                        <h5 class="card-title">Campionato</h5>
+                        <p class="card-text">Visualizza il tuo campionato, e scopri quale squadra stai sfidando, chi
+                            avrà fatto le scelte tattiche migliori?
+                            <br>
+                            Che Aspetti inizia ora?!
+                        </p>
+                        <a href="#" class="btn btn-outline-success">Visualizza</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col" style="padding: 10px 0px;">
+                <div class="card w-50 h-100 bg-primary-subtle">
+                    <div class="card-body">
+                        <h5 class="card-title">Classifica</h5>
+                        <p class="card-text">Scopri chi è in vetta al tuo campionato, e fissati dei nuovi obiettivi da
+                            superare.
+                            <br>
+                            Sarai un allenatore all'altezza!?
+                        </p>
+                        <a href="#" class="btn btn-outline-success">Visualizza</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-        crossorigin="anonymous"></script>
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
+        </script>
 </body>
 
 </html>
