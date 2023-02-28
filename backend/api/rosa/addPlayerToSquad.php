@@ -1,6 +1,6 @@
 <?php
 require("../../common/connect.php");
-require("../../model/league.php");
+require("../../model/rosa.php");
 
 header("Content-type: application/json; charset=UTF-8");
 

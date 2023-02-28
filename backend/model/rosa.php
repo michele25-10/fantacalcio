@@ -13,5 +13,13 @@ class Rosa
         VALUES ('" . $id_squad . "', '" . $id_league . "', '" . $id_player . "');";
         return $sql;
     }
+
+    function getNumberPlayer($id_squad)
+    {
+        $sql = "SELECT count(id) as 'count_player'
+                FROM rosa
+                WHERE id_squad = '" . $id_squad . "';";
+        return $sql;
+    }
 }
 ?>
