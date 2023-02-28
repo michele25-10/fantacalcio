@@ -8,7 +8,7 @@ include_once dirname(__FILE__) . '/../../model/league.php';
 include_once dirname(__FILE__) . '/../../model/base.php';
 
 $dtbase = new Database();
-$sb_conn = $dtbase->connect();
+$db_conn = $dtbase->connect();
 
 $league = new League($db_conn);
 $query = $league->getArchiveLeague();

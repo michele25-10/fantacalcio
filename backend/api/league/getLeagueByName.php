@@ -16,7 +16,7 @@ if (!isset($_GET['name']) || ($name = explode("?name=", $_SERVER['REQUEST_URI'])
 //$user = explode("?user=" , $_SERVER['REQUEST_URI'])[1];
 
 $dtbase = new Database();
-$sb_conn = $dtbase->connect();
+$db_conn = $dtbase->connect();
 
 $league = new League($db_conn);
 $query = $league->getLeagueByName($name);

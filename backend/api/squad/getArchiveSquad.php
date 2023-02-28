@@ -4,37 +4,31 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
 include_once dirname(__FILE__) . '/../../common/connect.php';
-include_once dirname(__FILE__) . '/../../model/league.php';
+include_once dirname(__FILE__) . '/../../model/squad.php';
 include_once dirname(__FILE__) . '/../../model/base.php';
 
-if (!isset($_GET['id_trustee']) || ($id_trustee = explode("?id_trustee=", $_SERVER['REQUEST_URI'])[1]) == null) {
-    http_response_code(400);
-    echo json_encode(["message" => "Non ci sono abbastanza campi per la ricerca"]);
-    die();
-}
-
-//$user = explode("?user=" , $_SERVER['REQUEST_URI'])[1];
 
 $dtbase = new Database();
 $db_conn = $dtbase->connect();
 
-$league = new League($db_conn);
-$query = $league->getLeagueByTrustee($id_trustee);
+$squad = new Squad($db_conn);
+$query = $squad->getArchiveSquad();
 $result = $conn->query($query);
 
 if (mysqli_num_rows($result) > 0) {
-    $leagues_arr = array();
+    $squads_arr = array();
     while ($row = $result->fetch_assoc()) {
         extract($row);
-        $league_arr = array(
+        $squad_arr = array(
             'id' => $id,
             'name' => $name,
-            'id_trustee' => $id_trustee,
+            'nickname' => $id_trustee,
+            'score' => $score,
         );
-        array_push($leagues_arr, $league_arr);
+        array_push($squads_arr, $squad_arr);
     }
     http_response_code(200);
-    echo (json_encode($leagues_arr, JSON_PRETTY_PRINT));
+    echo (json_encode($squads_arr, JSON_PRETTY_PRINT));
 } else {
     http_response_code(400);
     echo json_encode(["message" => "Non sono state trovate leghe con quel nome"]);
@@ -43,5 +37,4 @@ if (mysqli_num_rows($result) > 0) {
 
 $conn->close();
 die();
-
 ?>
