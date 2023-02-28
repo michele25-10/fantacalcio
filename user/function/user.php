@@ -27,7 +27,7 @@ function login($data)
     curl_close($curl); //chiudo sessione
 
     $response = json_decode($responseJson); //decodifico la response dal json
-    var_dump($response);
+
     if ($response->response == true) //response == true vuol dire sessione senza errori
     {
         $_SESSION['user_id'] = $response->userID;
@@ -64,8 +64,6 @@ function logon($data)
     curl_close($curl); //chiudo sessione
 
     $response = json_decode($responseJson); //decodifico la response dal json
-
-    var_dump($responseJson);
 
     if ($response->message == "1") //response == true vuol dire sessione senza errori
     {

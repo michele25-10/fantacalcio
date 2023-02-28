@@ -34,7 +34,7 @@ if (empty($_SESSION['user_id'])) {
                             Sfidali e scoprirai chi è quello che di calcio in fin dei conti ne sa di più.
                         </p>
                         <a href="#" class="btn btn-outline-success">Iscriviti</a>
-                        <a href="#" class="btn btn-outline-success">Crea</a>
+                        <a href="createLeague.php" class="btn btn-outline-success">Crea</a>
                     </div>
                 </div>
             </div>
