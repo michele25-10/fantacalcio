@@ -14,5 +14,11 @@ class Squad_League
                 where s.id_user = " . $id . ";";
         return $sql;
     }
+    function joinLeague($id_squad, $id_league)
+    {
+        $sql = "INSERT INTO fantacalcio.squad_league(id_squad, id_league)
+                VALUES ('" . $id_squad . "','" . $id_league . "');";
+        return $sql;
+    }
 }
 ?>
