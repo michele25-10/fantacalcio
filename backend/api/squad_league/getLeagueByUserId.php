@@ -4,7 +4,7 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 
 include_once dirname(__FILE__) . '/../../common/connect.php';
-include_once dirname(__FILE__) . '/../../model/squad.php';
+include_once dirname(__FILE__) . '/../../model/squad_league.php';
 include_once dirname(__FILE__) . '/../../model/base.php';
 
 if (!isset($_GET['id_user']) || ($id = explode("?id_user=", $_SERVER['REQUEST_URI'])[1]) == null) {
@@ -16,9 +16,9 @@ if (!isset($_GET['id_user']) || ($id = explode("?id_user=", $_SERVER['REQUEST_UR
 //$user = explode("?user=" , $_SERVER['REQUEST_URI'])[1];
 
 $dtbase = new Database();
-$db_conn = $dtbase->connect();
+$conn = $dtbase->connect();
 
-$squad_league = new Squad_League($db_conn);
+$squad_league = new Squad_League($conn);
 $query = $squad_league->getLeagueByUserId($id);
 
 $result = $conn->query($query);
@@ -34,11 +34,11 @@ if (mysqli_num_rows($result) > 0) {
     }
     http_response_code(200);
     echo (json_encode($leagues_arr, JSON_PRETTY_PRINT));
+    echo "ok";
 } else {
     http_response_code(400);
     echo json_encode(["message" => "Non sono state trovate leghe con quel nome"]);
 }
-
 $conn->close();
 die();
 ?>

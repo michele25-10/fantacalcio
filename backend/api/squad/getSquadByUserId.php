@@ -16,9 +16,9 @@ if (!isset($_GET['id_user']) || ($id = explode("?id_user=", $_SERVER['REQUEST_UR
 //$user = explode("?user=" , $_SERVER['REQUEST_URI'])[1];
 
 $dtbase = new Database();
-$db_conn = $dtbase->connect();
+$conn = $dtbase->connect();
 
-$squad = new Squad($db_conn);
+$squad = new Squad($conn);
 $query = $squad->getSquadByUserId($id);
 
 $result = $conn->query($query);

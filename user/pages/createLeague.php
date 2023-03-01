@@ -69,9 +69,14 @@ if (empty($_SESSION['user_id'])) {
             <?php endif ?>
             <?php
             if ($res_squad == "1" && $res_league == "1") {
-                //getSquadId()
-                //getLeagueId()
-                echo ("bravo hai creato con successo");
+                if (getSquadId($_SESSION['user_id']) != "1") {
+                    echo ('<p class="text-danger">Errore nella creazione della squadra</p>');
+                }
+
+                if (getLeagueId($_SESSION['user_id']) != "1") {
+                    echo ('<p class="text-danger">Errore nella creazione della squadra</p>');
+                }
+                var_dump($_SESSION);
             }
         }
         ?>

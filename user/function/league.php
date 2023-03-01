@@ -35,4 +35,33 @@ function createLeague($data)
     }
 }
 
+function getLeagueId($id)
+{
+    $url = 'http://localhost/fantacalcio/backend/api/squad_league/getLeagueByUserId.php?id_user=' . $id;
+
+    $json_data = file_get_contents($url);
+
+    var_dump($json_data);
+
+    if ($json_data != false) {
+        $decode_data = json_decode($json_data, $assoc = true);
+        $league_data = $decode_data;
+        $leagues_arr = array();
+        if (!empty($league_data)) {
+            foreach ($league_data as $league) {
+                $league_record = array(
+                    'id' => $league['id'],
+                );
+                array_push($leagues_arr, $league_record);
+            }
+
+            $_SESSION['id_league'] = $leagues_arr['id'];
+        } else {
+            return -1;
+        }
+    } else {
+        return -1;
+    }
+}
+
 ?>
