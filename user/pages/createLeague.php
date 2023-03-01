@@ -4,6 +4,12 @@ session_start();
 if (empty($_SESSION['user_id'])) {
     header('location: ../index.php');
 }
+if (!empty($_SESSION['id_league'])) {
+    header('location: homepage.php');
+}
+if (!empty($_SESSION['id_squad'])) {
+    header('location: homepage.php');
+}
 
 ?>
 
@@ -69,14 +75,21 @@ if (empty($_SESSION['user_id'])) {
             <?php endif ?>
             <?php
             if ($res_squad == "1" && $res_league == "1") {
-                if (getSquadId($_SESSION['user_id']) != "1") {
+                if (getSquadId($_SESSION['user_id']) != "1" && getLeagueId($_SESSION['user_id']) != "1") {
                     echo ('<p class="text-danger">Errore nella creazione della squadra</p>');
+                } else {
+                    $data_join = array(
+                        'id_squad' => $_SESSION['id_squad'],
+                        'id_league' => $_SESSION['id_league'],
+                    );
+
+                    if (joinLeague($data_join) == 1) {
+                        header('location: homepage.php');
+                    } else {
+                        echo ('<p class="text-danger">Errore nella iscrizione della tua squadra nella lega</p>');
+                    }
                 }
 
-                if (getLeagueId($_SESSION['user_id']) != "1") {
-                    echo ('<p class="text-danger">Errore nella creazione della squadra</p>');
-                }
-                var_dump($_SESSION);
             }
         }
         ?>

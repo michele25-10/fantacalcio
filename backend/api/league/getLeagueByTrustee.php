@@ -16,9 +16,9 @@ if (!isset($_GET['id_trustee']) || ($id_trustee = explode("?id_trustee=", $_SERV
 //$user = explode("?user=" , $_SERVER['REQUEST_URI'])[1];
 
 $dtbase = new Database();
-$db_conn = $dtbase->connect();
+$conn = $dtbase->connect();
 
-$league = new League($db_conn);
+$league = new League($conn);
 $query = $league->getLeagueByTrustee($id_trustee);
 $result = $conn->query($query);
 
