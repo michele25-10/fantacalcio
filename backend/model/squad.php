@@ -23,5 +23,13 @@ class Squad
         VALUES ('" . $name . "','" . $id_user . "', 0); ";
         return $sql;
     }
+
+    function getSquadByUserId($id_user)
+    {
+        $sql = "SELECT id_user
+                FROM squad
+                Where id_user = " . $id_user . ";";
+        return $sql;
+    }
 }
 ?>
