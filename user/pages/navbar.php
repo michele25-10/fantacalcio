@@ -32,7 +32,7 @@
                         <a class="nav-link" href="viewOrder.php">Squadra</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="profile.php">Classifica</a>
+                        <a class="nav-link" href="getRanking.php">Classifica</a>
                     </li>
                 </ul>
                 <a href="../function/logout.php">

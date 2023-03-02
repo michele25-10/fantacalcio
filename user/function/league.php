@@ -132,4 +132,32 @@ function getArchiveLeague()
     }
 }
 
+function getRanking($id)
+{
+
+    $url = 'http://localhost/fantacalcio/backend/api/league/getRanking.php?id_league=' . $id;
+
+    $json_data = file_get_contents($url);
+
+    if ($json_data != false) {
+        $decode_data = json_decode($json_data, $assoc = true);
+        $ranking_data = $decode_data;
+        $ranking_arr = array();
+        if (!empty($ranking_data)) {
+            foreach ($ranking_data as $league) {
+                $rank_record = array(
+                    'name' => $league['name'],
+                    'score' => $league['score'],
+                );
+                array_push($ranking_arr, $rank_record);
+            }
+            return $ranking_arr;
+        } else {
+            return -1;
+        }
+    } else {
+        return -1;
+    }
+}
+
 ?>

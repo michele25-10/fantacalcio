@@ -73,7 +73,7 @@ if (empty($_SESSION['user_id'])) {
                             <br>
                             Sarai un allenatore all'altezza!?
                         </p>
-                        <a href="#" class="btn btn-outline-success">Visualizza</a>
+                        <a href="getRanking.php" class="btn btn-outline-success">Visualizza</a>
                     </div>
                 </div>
             </div>
