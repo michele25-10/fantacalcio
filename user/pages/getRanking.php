@@ -2,7 +2,13 @@
 
 session_start();
 if (empty($_SESSION['user_id'])) {
-    header('location: ../index.php');
+    header('location: ../login.php');
+}
+if (!empty($_SESSION['id_league'])) {
+    header('location: homepage.php');
+}
+if (!empty($_SESSION['id_squad'])) {
+    header('location: homepage.php');
 }
 
 ?>
