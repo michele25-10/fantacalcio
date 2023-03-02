@@ -49,5 +49,14 @@ class League
         where id = " . $id . "; ";
         return $sql;
     }
+
+    function getRanking($id)
+    {
+        $sql = "SELECT s.name, s.score
+        FROM squad_league sl
+        INNER JOIN squad s on s.id=sl.id_squad
+        where sl.id_league=" . $id . ";";
+        return $sql;
+    }
 }
 ?>
