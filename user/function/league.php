@@ -103,4 +103,33 @@ function joinLeague($data)
     }
 }
 
+function getArchiveLeague()
+{
+
+    $url = 'http://localhost/fantacalcio/backend/api/league/getArchiveLeague.php';
+
+    $json_data = file_get_contents($url);
+
+    if ($json_data != false) {
+        $decode_data = json_decode($json_data, $assoc = true);
+        $league_data = $decode_data;
+        $leagues_arr = array();
+        if (!empty($league_data)) {
+            foreach ($league_data as $league) {
+                $league_record = array(
+                    'id' => $league['id'],
+                    'name' => $league['name'],
+                    'id_trustee' => $league['id_trustee'],
+                );
+                array_push($leagues_arr, $league_record);
+            }
+            return $leagues_arr;
+        } else {
+            return -1;
+        }
+    } else {
+        return -1;
+    }
+}
+
 ?>

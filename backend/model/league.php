@@ -28,7 +28,8 @@ class League
     {
         $sql = "SELECT id, name, id_trustee
         FROM league
-        WHERE 1=1; ";
+        WHERE 1=1
+        order by name asc;";
 
         return $sql;
     }
