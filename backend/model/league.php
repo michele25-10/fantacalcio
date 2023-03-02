@@ -55,7 +55,8 @@ class League
         $sql = "SELECT s.name, s.score
         FROM squad_league sl
         INNER JOIN squad s on s.id=sl.id_squad
-        where sl.id_league=" . $id . ";";
+        where sl.id_league=" . $id . "
+        order by s.score desc;";
         return $sql;
     }
 }
