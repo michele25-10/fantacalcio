@@ -155,4 +155,30 @@ function getRanking($id)
     }
 }
 
+function getLeagueBySquad($id)
+{
+    $url = 'http://localhost/fantacalcio/backend/api/squad_league/getLeagueBySquad.php?id_squad=' . $id;
+
+    $json_data = file_get_contents($url);
+
+    if ($json_data != false) {
+        $decode_data = json_decode($json_data, $assoc = true);
+        $league_data = $decode_data;
+        $league_arr = array();
+        if (!empty($league_data)) {
+            foreach ($league_data as $league) {
+                $league_record = array(
+                    'id' => $league['id'],
+                );
+                array_push($league_arr, $league_record);
+            }
+            return $league_arr[0]['id'];
+        } else {
+            return -1;
+        }
+    } else {
+        return -1;
+    }
+}
+
 ?>

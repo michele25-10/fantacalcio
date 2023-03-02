@@ -7,7 +7,7 @@ include_once dirname(__FILE__) . '/../../common/connect.php';
 include_once dirname(__FILE__) . '/../../model/squad_league.php';
 include_once dirname(__FILE__) . '/../../model/base.php';
 
-if (!isset($_GET['id_user']) || ($id = explode("?id_user=", $_SERVER['REQUEST_URI'])[1]) == null) {
+if (!isset($_GET['id_squad']) || ($id = explode("?id_squad=", $_SERVER['REQUEST_URI'])[1]) == null) {
     http_response_code(400);
     echo json_encode(["message" => "Non ci sono abbastanza campi per la ricerca"]);
     die();
@@ -19,7 +19,7 @@ $dtbase = new Database();
 $conn = $dtbase->connect();
 
 $squad_league = new Squad_League($conn);
-$query = $squad_league->getLeagueByUserId($id);
+$query = $squad_league->getLeagueBySquad($id);
 
 $result = $conn->query($query);
 

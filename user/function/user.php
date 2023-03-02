@@ -31,7 +31,7 @@ function login($data)
     if ($response->response == true) //response == true vuol dire sessione senza errori
     {
         $_SESSION['user_id'] = $response->userID;
-        header('Location: pages/homepage.php');
+
     } else {
         return -1;
     }
