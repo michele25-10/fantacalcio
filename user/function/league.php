@@ -35,14 +35,11 @@ function createLeague($data)
     }
 }
 
-function getLeagueId($id)
+function getLeagueByTrusteeId($id)
 {
     $url = 'http://localhost/fantacalcio/backend/api/league/getLeagueByTrustee.php?id_trustee=' . $id;
 
     $json_data = file_get_contents($url);
-
-    var_dump($json_data);
-
     if ($json_data != false) {
         $decode_data = json_decode($json_data, $assoc = true);
         $league_data = $decode_data;
@@ -56,9 +53,7 @@ function getLeagueId($id)
                 );
                 array_push($leagues_arr, $league_record);
             }
-
-            $_SESSION['id_league'] = $leagues_arr[0]['id'];
-            return 1;
+            return $leagues_arr[0]['id'];
         } else {
             return -1;
         }

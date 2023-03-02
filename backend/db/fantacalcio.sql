@@ -17,7 +17,8 @@ score				INT not null DEFAULT(0)
 create table fantacalcio.league(
 id					INT UNSIGNED NOT NULL   AUTO_INCREMENT  PRIMARY key,
 name 				VARCHAR(30) not NULL,
-id_trustee			INT UNSIGNED NOT null
+id_trustee			INT UNSIGNED NOT null,
+status              INT not null DEFAULT(0)
 );
 
 create table fantacalcio.squad_league(

@@ -66,12 +66,10 @@ if (!empty($_SESSION['id_squad'])) {
                 );
 
                 $res_squad = createSquad($data_squad);
-                ?>
 
-                <?php if ($res_squad != "1"): ?>
-                    <p class="text-danger">Errore nella creazione della squadra</p>
-                <?php endif ?>
-                <?php
+                if ($res_squad != "1") {
+                    echo ('<p class="text-danger">Errore nella creazione della squadra</p>');
+                }
                 if ($res_squad == "1") {
                     if (getSquadId($_SESSION['user_id']) != "1") {
                         echo ('<p class="text-danger">Errore nella creazione della squadra</p>');

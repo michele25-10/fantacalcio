@@ -21,7 +21,8 @@ if (empty($_SESSION['user_id'])) {
 </head>
 
 <body>
-    <?php require_once(__DIR__ . '\navbar.php'); ?>
+    <?php require_once(__DIR__ . '\navbar.php');
+    var_dump($_SESSION); ?>
 
     <div class="container" style="padding: 30px 10px; ">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-2">

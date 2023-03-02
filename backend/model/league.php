@@ -8,8 +8,8 @@ class League
     }
     function createLeague($name, $user_id)
     {
-        $sql = "INSERT INTO fantacalcio.league (name, id_trustee)
-                VALUES ('" . $name . "', " . $user_id . "); ";
+        $sql = "INSERT INTO fantacalcio.league (name, id_trustee, status)
+                VALUES ('" . $name . "', " . $user_id . ", 0); ";
 
         $result = $this->conn->query($sql);
         return $result;
@@ -19,7 +19,7 @@ class League
     {
         $sql = "SELECT id, name, id_trustee
         FROM league
-        WHERE name = '" . $name . "';";
+        WHERE name = '" . $name . "' AND status = 0;";
 
         return $sql;
     }
@@ -28,7 +28,7 @@ class League
     {
         $sql = "SELECT id, name, id_trustee
         FROM league
-        WHERE 1=1
+        WHERE status=0
         order by name asc;";
 
         return $sql;
@@ -38,7 +38,7 @@ class League
     {
         $sql = "SELECT id, name, id_trustee
         FROM league
-        where id_trustee = '" . $id_trustee . "';";
+        where id_trustee = '" . $id_trustee . "' AND status=0;";
         return $sql;
     }
 
@@ -46,7 +46,7 @@ class League
     {
         $sql = "SELECT id_trustee
         FROM league
-        where id = " . $id . "; ";
+        where id = " . $id . " and status=0; ";
         return $sql;
     }
 
@@ -55,7 +55,8 @@ class League
         $sql = "SELECT s.name, s.score
         FROM squad_league sl
         INNER JOIN squad s on s.id=sl.id_squad
-        where sl.id_league=" . $id . "
+        inner join league l on l.id = sl.id_league
+        where sl.id_league=" . $id . " and l.status=0
         order by s.score desc;";
         return $sql;
     }

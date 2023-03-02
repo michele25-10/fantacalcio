@@ -4,10 +4,10 @@ session_start();
 if (empty($_SESSION['user_id'])) {
     header('location: ../login.php');
 }
-if (!empty($_SESSION['id_league'])) {
+if (empty($_SESSION['id_league'])) {
     header('location: homepage.php');
 }
-if (!empty($_SESSION['id_squad'])) {
+if (empty($_SESSION['id_squad'])) {
     header('location: homepage.php');
 }
 
@@ -19,7 +19,7 @@ if (!empty($_SESSION['id_squad'])) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Fantacalcio | Homepage</title>
+    <title>Fantacalcio | Classifica</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/style.css">
