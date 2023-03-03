@@ -29,5 +29,16 @@ class Squad_League
         ";
         return $sql;
     }
+
+    function getSquadJoinLeague($id)
+    {
+        $sql = "select s.id, s.name 
+        from squad_league sl 
+        inner join league l on l.id = sl.id_league 
+        inner join squad s on s.id = sl.id_squad 
+        where l.status = 0 and l.id=" . $id . "
+        order by s.name asc;";
+        return $sql;
+    }
 }
 ?>
