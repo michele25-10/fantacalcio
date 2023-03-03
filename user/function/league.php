@@ -215,4 +215,14 @@ function getArchiveLeagueMoreDetails()
     }
 }
 
+function checkTrustee($id)
+{
+    $url = 'http://localhost/fantacalcio/backend/api/league/checkTrustee.php?id_user=' . $id;
+
+    $json_data = file_get_contents($url);
+    $decode_data = json_decode($json_data, $assoc = true);
+
+    return $decode_data['message'];
+}
+
 ?>

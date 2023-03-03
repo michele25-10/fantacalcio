@@ -8,16 +8,16 @@ include_once dirname(__FILE__) . '/../../model/league.php';
 include_once dirname(__FILE__) . '/../../model/base.php';
 
 
-if (!isset($_GET['id']) || ($id = explode("?id=", $_SERVER['REQUEST_URI'])[1]) == null) {
+if (!isset($_GET['id_user']) || ($id = explode("?id_user=", $_SERVER['REQUEST_URI'])[1]) == null) {
     http_response_code(400);
     echo json_encode(["message" => "Non ci sono abbastanza campi per la ricerca"]);
     die();
 }
 
 $dtbase = new Database();
-$db_conn = $dtbase->connect();
+$conn = $dtbase->connect();
 
-$league = new League($db_conn);
+$league = new League($conn);
 $query = $league->checkTrustee($id);
 $result = $conn->query($query);
 
@@ -30,11 +30,13 @@ if (mysqli_num_rows($result) > 0) {
         );
         array_push($leagues_arr, $league_arr);
     }
-    http_response_code(200);
-    echo (json_encode($leagues_arr, JSON_PRETTY_PRINT));
+    if ($leagues_arr[0]['id_trustee'] == $id) {
+        echo (json_encode(["message" => "0"]));
+    } else {
+        echo (json_encode(["message" => "-1"]));
+    }
 } else {
-    http_response_code(400);
-    echo json_encode(["message" => "Non sono state trovate leghe"]);
+    echo json_encode(["message" => "-1"]);
 }
 
 

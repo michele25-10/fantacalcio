@@ -34,6 +34,15 @@
                     <li class="nav-item">
                         <a class="nav-link" href="getRanking.php">Classifica</a>
                     </li>
+                    <?php
+                    include_once dirname(__FILE__) . '/../function/league.php';
+                    $res = checkTrustee($_SESSION['user_id']);
+                    ?>
+                    <?php if ($res == 0): ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="populateSquad.php">Asta</a>
+                        </li>
+                    <?php endif ?>
                 </ul>
                 <a href="../function/logout.php">
                     <button type="button" class="btn btn-outline-danger">Esci

@@ -46,7 +46,7 @@ class League
     {
         $sql = "SELECT id_trustee
         FROM league
-        where id = " . $id . " and status=0; ";
+        where id_trustee = " . $id . " and status=0; ";
         return $sql;
     }
 
