@@ -60,5 +60,15 @@ class League
         order by s.score desc;";
         return $sql;
     }
+
+    function getArchiveLeagueMoreDetails()
+    {
+        $sql = "SELECT l.id, l.name, u.nickname as 'id_trustee'
+        FROM league l
+        inner join user u on u.id=l.id_trustee
+        WHERE status=0
+        order by name asc;";
+        return $sql;
+    }
 }
 ?>
