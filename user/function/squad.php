@@ -41,26 +41,29 @@ function getSquadId($id)
     $url = 'http://localhost/fantacalcio/backend/api/squad/getSquadByUserId.php?id_user=' . $id;
 
     $json_data = file_get_contents($url);
+    $decode_data = json_decode($json_data, $assoc = true);
+    if ($decode_data['message'] == "-2") {
+        return -2;
+    } else {
+        if ($json_data != false) {
+            $squad_data = $decode_data;
+            $squads_arr = array();
+            if (!empty($squad_data)) {
+                foreach ($squad_data as $squad) {
+                    $squad_record = array(
+                        'id' => $squad['id'],
+                    );
+                    array_push($squads_arr, $squad_record);
+                }
 
-    if ($json_data != false) {
-        $decode_data = json_decode($json_data, $assoc = true);
-        $squad_data = $decode_data;
-        $squads_arr = array();
-        if (!empty($squad_data)) {
-            foreach ($squad_data as $squad) {
-                $squad_record = array(
-                    'id' => $squad['id'],
-                );
-                array_push($squads_arr, $squad_record);
+                return $squads_arr[0]['id'];
+            } else {
+                return -1;
             }
 
-            $_SESSION['id_squad'] = $squads_arr[0]['id'];
-            return 1;
         } else {
             return -1;
         }
-    } else {
-        return -1;
     }
 }
 

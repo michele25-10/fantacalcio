@@ -160,24 +160,29 @@ function getLeagueBySquad($id)
     $url = 'http://localhost/fantacalcio/backend/api/squad_league/getLeagueBySquad.php?id_squad=' . $id;
 
     $json_data = file_get_contents($url);
+    $decode_data = json_decode($json_data, $assoc = true);
 
-    if ($json_data != false) {
-        $decode_data = json_decode($json_data, $assoc = true);
-        $league_data = $decode_data;
-        $league_arr = array();
-        if (!empty($league_data)) {
-            foreach ($league_data as $league) {
-                $league_record = array(
-                    'id' => $league['id'],
-                );
-                array_push($league_arr, $league_record);
+    if ($decode_data['message'] == "-2") {
+        return -2;
+    } else {
+        if ($json_data != false) {
+            $league_data = $decode_data;
+            $league_arr = array();
+            if (!empty($league_data)) {
+                foreach ($league_data as $league) {
+                    $league_record = array(
+                        'id' => $league['id'],
+                    );
+                    array_push($league_arr, $league_record);
+                }
+                return $league_arr[0]['id'];
+            } else {
+                return -1;
             }
-            return $league_arr[0]['id'];
+
         } else {
             return -1;
         }
-    } else {
-        return -1;
     }
 }
 

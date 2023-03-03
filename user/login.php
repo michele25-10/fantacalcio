@@ -47,11 +47,23 @@
                 if (login($data) == -1) {
                     echo ('<p class=text-danger>Email o password errata</p>');
                 } else {
-                    getSquadId($_SESSION['user_id']);
-                    $id_league = getLeagueBySquad($_SESSION['id_squad']);
-                    if ($id_league != -1) {
-                        $_SESSION['id_league'] = $id_league;
+                    $id_squad = getSquadId($_SESSION['user_id']);
+                    if ($id_squad == -1) {
+                        echo '<p class="text-danger">Errore riprova più tardi!</p>';
+                    } elseif ($id_squad == -2) {
                         header('Location: pages/homepage.php');
+
+                    } else {
+                        $_SESSION['id_squad'] = $id_squad;
+                        $id_league = getLeagueBySquad($_SESSION['id_squad']);
+                        if ($id_league == -1) {
+                            echo '<p class="text-danger">Errore riprova più tardi!</p>';
+                        } elseif ($id_league == -2) {
+                            header('Location: pages/homepage.php');
+                        } else {
+                            $_SESSION['id_league'] = $id_league;
+                            header('Location: pages/homepage.php');
+                        }
                     }
                 }
             } else {
