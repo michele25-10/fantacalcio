@@ -40,7 +40,7 @@
                     ?>
                     <?php if ($res == 0): ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="populateSquad.php">Asta</a>
+                            <a class="nav-link" href="squadOnLeague.php">Asta</a>
                         </li>
                     <?php endif ?>
                 </ul>

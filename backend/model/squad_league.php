@@ -32,10 +32,11 @@ class Squad_League
 
     function getSquadJoinLeague($id)
     {
-        $sql = "select s.id, s.name 
+        $sql = "select s.id, s.name, u.nickname 
         from squad_league sl 
         inner join league l on l.id = sl.id_league 
         inner join squad s on s.id = sl.id_squad 
+        inner join `user` u on u.id =s.id_user 
         where l.status = 0 and l.id=" . $id . "
         order by s.name asc;";
         return $sql;

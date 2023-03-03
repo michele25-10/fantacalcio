@@ -29,6 +29,7 @@ if (mysqli_num_rows($result) > 0) {
         $league_arr = array(
             'id' => $id,
             'name' => $name,
+            'nickname' => $nickname,
         );
         array_push($leagues_arr, $league_arr);
     }
@@ -36,7 +37,7 @@ if (mysqli_num_rows($result) > 0) {
     echo (json_encode($leagues_arr, JSON_PRETTY_PRINT));
 } else {
     http_response_code(400);
-    echo json_encode(["message" => "Non sono state trovate leghe con quel nome"]);
+    echo json_encode(["message" => "-1"]);
 }
 
 
