@@ -9,7 +9,7 @@ class Player
 
     function getArchivePlayer()
     {
-        $sql = "SELECT id, name, surname, `role`
+        $sql = "SELECT id, surname, `role`
               FROM player
               WHERE 1=1
               order by surname ASC;

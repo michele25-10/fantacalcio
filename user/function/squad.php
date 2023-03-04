@@ -67,4 +67,33 @@ function getSquadId($id)
     }
 }
 
+function getSquadById($id)
+{
+    $url = 'http://localhost/fantacalcio/backend/api/squad/getSquadById.php?id_squad=' . $id;
+
+    $json_data = file_get_contents($url);
+    $decode_data = json_decode($json_data, $assoc = true);
+
+    if ($json_data != false) {
+        $squad_data = $decode_data;
+        $squads_arr = array();
+        if (!empty($squad_data)) {
+            foreach ($squad_data as $squad) {
+                $squad_record = array(
+                    'name' => $squad['name'],
+                );
+                array_push($squads_arr, $squad_record);
+            }
+
+            return $squads_arr[0]['name'];
+        } else {
+            return -1;
+        }
+
+    } else {
+        return -1;
+    }
+}
+
+
 ?>

@@ -28,21 +28,33 @@ if (empty($_SESSION['user_id'])) {
 
 <body>
     <?php require_once(__DIR__ . '\navbar.php'); ?>
+
+    <?php
+    include_once dirname(__FILE__) . '/../function/squad.php';
+    include_once dirname(__FILE__) . '/../function/player.php';
+    $squad = getSquadById($_GET['id_squad']);
+    $player = getArchivePlayer();
+    ?>
     <div class="mx-auto" style="width: 50%; padding: 30px 0px">
         <h2>Crea la tua lega!</h2>
         <form method="post" style="margin-top: 20px;">
-            <div class="form-floating">
-                <select class="form-select" name="id_league" id="inputGroupSelect02">
-                    <option selected disabled>Seleziona la tua lega!</option>
-                    <?php foreach ($league as $row): ?>
-                        <option value="<?php echo $row['id'] ?>"><?php echo $row['name'] ?></option>
-                    <?php endforeach ?>
-                </select>
+            <div class="mb-3">
+                <label for="name" class="form-label">Squadra: <b>
+                        <?php echo ($squad) ?>
+                    </b></label>
             </div>
             <hr>
             <div class="mb-3">
-                <label for="name" class="form-label"><b>Nome della tua squadra</b></label>
-                <input type="text" class="form-control" placeholder="Nome della tua squadra" name="name_squad" required>
+                <label for="name" class="form-label">Calciatore</label>
+                <div class="form-floating">
+                    <select class="form-select" name="id_league" id="inputGroupSelect02">
+                        <option selected disabled>Seleziona calciatore!</option>
+                        <?php foreach ($player as $row): ?>
+                            <option value="<?php echo $row['id'] ?>"><?php echo $row['surname'] ?>
+                            </option>
+                        <?php endforeach ?>
+                    </select>
+                </div>
             </div>
             <div class="mb-3">
                 <button class="btn btn-primary">Invia</button>
@@ -56,46 +68,7 @@ if (empty($_SESSION['user_id'])) {
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $data_league = array(
-                'name' => $_POST['name_league'],
-                'id_user' => $_SESSION['user_id'],
-            );
 
-            $res_league = createLeague($data_league);
-
-            $data_squad = array(
-                'name' => $_POST['name_squad'],
-                'id_user' => $_SESSION['user_id'],
-            );
-
-            $res_squad = createSquad($data_squad);
-
-            if ($res_squad != "1") {
-                echo ('<p class="text-danger">Errore nella creazione della squadra</p>');
-            }
-
-            if ($res_league != "1") {
-                echo ('<p class="text-danger">Errore nella creazione della lega</p>');
-            }
-
-            if ($res_squad == "1" && $res_league == "1") {
-                $id_league = getLeagueByTrusteeId($_SESSION['user_id']);
-                if (getSquadId($_SESSION['user_id']) != "1" && $id_league == "-1") {
-                    echo ('<p class="text-danger">Errore nella creazione della squadra</p>');
-                } else {
-                    $_SESSION['id_league'] = $id_league;
-                    $data_join = array(
-                        'id_squad' => $_SESSION['id_squad'],
-                        'id_league' => $_SESSION['id_league'],
-                    );
-                    if (joinLeague($data_join) == 1) {
-                        header('location: homepage.php');
-                    } else {
-                        echo ('<p class="text-danger">Errore nella iscrizione della tua squadra nella lega</p>');
-                    }
-                }
-
-            }
         }
         ?>
 

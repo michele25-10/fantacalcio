@@ -8,9 +8,9 @@ include_once dirname(__FILE__) . '/../../model/player.php';
 include_once dirname(__FILE__) . '/../../model/base.php';
 
 $dtbase = new Database();
-$db_conn = $dtbase->connect();
+$conn = $dtbase->connect();
 
-$player = new Player($db_conn);
+$player = new Player($conn);
 $query = $player->getArchivePlayer();
 $result = $conn->query($query);
 
@@ -20,8 +20,7 @@ if (mysqli_num_rows($result) > 0) {
         extract($row);
         $player_arr = array(
             'id' => $id,
-            'name' => $name,
-            'surname' => $id_trustee,
+            'surname' => $surname,
             'role' => $role,
         );
         array_push($players_arr, $player_arr);
