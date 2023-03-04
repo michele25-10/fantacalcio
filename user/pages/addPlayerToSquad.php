@@ -47,7 +47,7 @@ if (empty($_SESSION['user_id'])) {
             <div class="mb-3">
                 <label for="name" class="form-label">Calciatore</label>
                 <div class="form-floating">
-                    <select class="form-select" name="id_league" id="inputGroupSelect02">
+                    <select class="form-select" name="id_player" id="inputGroupSelect02" required>
                         <option selected disabled>Seleziona calciatore!</option>
                         <?php foreach ($player as $row): ?>
                             <option value="<?php echo $row['id'] ?>"><?php echo $row['surname'] ?>
@@ -57,18 +57,34 @@ if (empty($_SESSION['user_id'])) {
                 </div>
             </div>
             <div class="mb-3">
-                <button class="btn btn-primary">Invia</button>
+                <button class="btn btn-primary" type="submit">Invia</button>
             </div>
         </form>
 
         <?php
 
-        include_once dirname(__FILE__) . '/../function/league.php';
-        include_once dirname(__FILE__) . '/../function/squad.php';
+        include_once dirname(__FILE__) . '/../function/rosa.php';
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if ($_POST['id_player'] != "") {
+                $data = array(
+                    "id_squad" => $_GET['id_squad'],
+                    "id_league" => $_SESSION['id_league'],
+                    "id_player" => $_POST['id_player'],
+                );
 
+                $res = addPlayerToSquad($data);
 
+                var_dump($res);
+
+                if ($res == -1) {
+                    echo ('<p class="text-danger">Errore, riprova più tardi!</p>');
+                } elseif ($res == 1) {
+                    echo ('<p class="text-success">Giocatore aggiunto alla squadra!</p>');
+                } else {
+                    echo ('<p class="text-bold">' . $res . '</p>');
+                }
+            }
         }
         ?>
 

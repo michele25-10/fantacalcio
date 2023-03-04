@@ -13,17 +13,16 @@ if (empty($data->id_squad) || empty($data->id_league) || empty($data->id_player)
 }
 
 $db = new Database();
-$db_conn = $db->connect();
-$rosa = new Rosa($db_comm);
+$conn = $db->connect();
+$rosa = new Rosa($conn);
 
 $result = $rosa->addPlayerToSquad($data->id_squad, $data->id_league, $data->id_player);
 
 if ($result != false) {
     http_response_code(200);
-    echo json_encode(["response" => true]);
+    echo json_encode(["message" => "1"]);
 } else {
-    http_response_code(401);
-    echo json_encode(["response" => false]);
+    echo json_encode(["message" => "-1"]);
 }
 die();
 ?>
