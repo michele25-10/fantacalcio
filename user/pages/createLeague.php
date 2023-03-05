@@ -4,12 +4,6 @@ session_start();
 if (empty($_SESSION['user_id'])) {
     header('location: ../login.php');
 }
-if (!empty($_SESSION['id_league'])) {
-    header('location: homepage.php');
-}
-if (!empty($_SESSION['id_squad'])) {
-    header('location: homepage.php');
-}
 
 ?>
 
@@ -41,7 +35,42 @@ if (!empty($_SESSION['id_squad'])) {
                 <input type="text" class="form-control" placeholder="Nome della tua squadra" name="name_squad" required>
             </div>
             <div class="mb-3">
-                <button class="btn btn-primary">Invia</button>
+                <?php if (empty($_SESSION['id_league']) || empty($_SESSION['id_squad'])): ?>
+                    <button class="btn btn-primary" type="submit">Invia</button>
+                <?php endif ?>
+                <?php if (!empty($_SESSION['id_league']) || !empty($_SESSION['id_squad'])): ?>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                        Invia
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Sei già iscritto ad una lega!
+                                    </h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Non puoi creare due leghe contemporaneamente; attendi che la lega che hai
+                                        creato termini il suo campionato... successivamente potrai iscriverti oppure
+                                        creare la tua nuova lega di nuovo.
+                                    </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <a href="homepage.php">
+                                        <button type="button" class="btn btn-primary">Ok!</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif ?>
             </div>
         </form>
 

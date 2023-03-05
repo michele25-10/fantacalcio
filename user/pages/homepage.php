@@ -47,7 +47,7 @@ if (empty($_SESSION['user_id'])) {
                             <br>
                             Che Aspetti inizia ora?!
                         </p>
-                        <a href="#" class="btn btn-outline-success">Visualizza</a>
+                        <a href="getMySquad.php" class="btn btn-outline-success">Visualizza</a>
                     </div>
                 </div>
             </div>
@@ -60,7 +60,40 @@ if (empty($_SESSION['user_id'])) {
                             <br>
                             Che Aspetti inizia ora?!
                         </p>
-                        <a href="#" class="btn btn-outline-success">Visualizza</a>
+                        <?php if (empty($_SESSION['id_league']) || empty($_SESSION['id_squad'])): ?>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop">
+                                Visualizza
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Non sei iscritto ad una
+                                                lega!
+                                            </h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Non puoi visualizzare il campionato se non sei iscritto ad una lega.
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endif ?>
+                        <?php if (!empty($_SESSION['id_league']) || !empty($_SESSION['id_squad'])): ?>
+                            <a href="#" class="btn btn-outline-success">Visualizza</a>
+                        <?php endif ?>
                     </div>
                 </div>
             </div>
@@ -73,7 +106,40 @@ if (empty($_SESSION['user_id'])) {
                             <br>
                             Sarai un allenatore all'altezza!?
                         </p>
-                        <a href="getRanking.php" class="btn btn-outline-success">Visualizza</a>
+                        <?php if (empty($_SESSION['id_league']) || empty($_SESSION['id_squad'])): ?>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop">
+                                Visualizza
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Non sei iscritto ad una
+                                                lega!
+                                            </h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Non puoi visualizzare la classifica se non sei iscritto ad una lega.
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endif ?>
+                        <?php if (!empty($_SESSION['id_league']) || !empty($_SESSION['id_squad'])): ?>
+                            <a href="#" class="btn btn-outline-success">Visualizza</a>
+                        <?php endif ?>
                     </div>
                 </div>
             </div>
