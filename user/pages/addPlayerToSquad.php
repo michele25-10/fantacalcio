@@ -99,21 +99,25 @@ if (empty($_SESSION['user_id'])) {
 
         <?php
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if ($_POST['id_player'] != "") {
-                $data = array(
-                    "id_squad" => $_GET['id_squad'],
-                    "id_league" => $_SESSION['id_league'],
-                    "id_player" => $_POST['id_player'],
-                );
+            if (getNumberPlayer($_GET['id_squad']) < 11) {
+                if ($_POST['id_player'] != "") {
+                    $data = array(
+                        "id_squad" => $_GET['id_squad'],
+                        "id_league" => $_SESSION['id_league'],
+                        "id_player" => $_POST['id_player'],
+                    );
 
-                $res = addPlayerToSquad($data);
+                    $res = addPlayerToSquad($data);
 
-                if ($res == -1) {
-                    echo ('<p class="text-danger">Errore, riprova più tardi!</p>');
-                } elseif ($res == 1) {
-                    echo ('<p class="text-success">Giocatore aggiunto alla squadra!</p>');
-                } else {
-                    echo ('<p class="text-bold">' . $res . '</p>');
+                    if ($res == -1) {
+                        echo ('<p class="text-danger">Errore, riprova più tardi!</p>');
+                    } elseif ($res == 1) {
+                        echo ('<p class="text-success">Giocatore aggiunto alla squadra!</p>');
+                        $nPlayer = getNumberPlayer($_GET['id_squad']);
+                        $area = ($nPlayer / 11) * 100;
+                    } else {
+                        echo ('<p class="text-bold">' . $res . '</p>');
+                    }
                 }
             }
         }

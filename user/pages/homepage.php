@@ -138,7 +138,7 @@ if (empty($_SESSION['user_id'])) {
                             </div>
                         <?php endif ?>
                         <?php if (!empty($_SESSION['id_league']) || !empty($_SESSION['id_squad'])): ?>
-                            <a href="#" class="btn btn-outline-success">Visualizza</a>
+                            <a href="getRanking.php" class="btn btn-outline-success">Visualizza</a>
                         <?php endif ?>
                     </div>
                 </div>
