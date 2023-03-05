@@ -40,5 +40,17 @@ class Squad
         ";
         return $sql;
     }
+
+    function getPlayerOfSquad($id_squad)
+    {
+        $sql = "select p.id, p.surname, p.`role`  
+        from squad s 
+        inner join rosa r on r.id_squad = s.id  
+        inner join player p on r.id_player = p.id 
+        inner join league l on l.id = r.id_league 
+        where l.status = 0 and s.id = '" . $id_squad . "'
+        order by p.surname asc;";
+        return $sql;
+    }
 }
 ?>

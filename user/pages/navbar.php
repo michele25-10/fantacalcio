@@ -29,7 +29,7 @@
                         <a class="nav-link" href="cart.php">Giornate</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="viewOrder.php">Squadra</a>
+                        <a class="nav-link" href="getMySquad.php">Squadra</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="getRanking.php">Classifica</a>
