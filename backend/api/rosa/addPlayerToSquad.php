@@ -16,7 +16,8 @@ $db = new Database();
 $conn = $db->connect();
 $rosa = new Rosa($conn);
 
-$result = $rosa->addPlayerToSquad($data->id_squad, $data->id_league, $data->id_player);
+$query = $rosa->addPlayerToSquad($data->id_squad, $data->id_league, $data->id_player);
+$result = $conn->query($query);
 
 if ($result != false) {
     http_response_code(200);

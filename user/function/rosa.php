@@ -59,4 +59,27 @@ function addPlayerToSquad($data)
 
     return $response->message;
 }
+
+function getNumberPlayer($id_squad)
+{
+    $url = 'http://localhost/fantacalcio/backend/api/rosa/getNumberPlayer.php?id_squad=' . $id_squad;
+
+    $json_data = file_get_contents($url);
+    $decode_data = json_decode($json_data, $assoc = true);
+
+    $player_data = $decode_data;
+    $player_arr = array();
+    if (!empty($player_data)) {
+        foreach ($player_data as $player) {
+            $player_record = array(
+                'number' => $player['number'],
+            );
+            array_push($player_arr, $player_record);
+        }
+
+        return $player_arr[0]['number'];
+    } else {
+        return -1;
+    }
+}
 ?>
