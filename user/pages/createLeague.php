@@ -35,7 +35,7 @@ if (empty($_SESSION['user_id'])) {
                 <input type="text" class="form-control" placeholder="Nome della tua squadra" name="name_squad" required>
             </div>
             <div class="mb-3">
-                <?php if (empty($_SESSION['id_league']) || empty($_SESSION['id_squad'])): ?>
+                <?php if (empty($_SESSION['id_league']) && empty($_SESSION['id_squad'])): ?>
                     <button class="btn btn-primary" type="submit">Invia</button>
                 <?php endif ?>
                 <?php if (!empty($_SESSION['id_league']) || !empty($_SESSION['id_squad'])): ?>

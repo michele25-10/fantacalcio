@@ -26,7 +26,7 @@ class Squad
 
     function getSquadByUserId($id_user)
     {
-        $sql = "SELECT id_user
+        $sql = "SELECT id
                 FROM squad
                 Where id_user = " . $id_user . ";";
         return $sql;
