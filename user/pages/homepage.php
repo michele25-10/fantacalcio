@@ -23,123 +23,140 @@ if (empty($_SESSION['user_id'])) {
 <body>
     <?php require_once(__DIR__ . '\navbar.php'); ?>
 
-    <div class="container" style="padding: 30px 10px; ">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-2">
-            <div class="col" style="padding: 10px 0px;">
-                <div class="card w-50 h-100 bg-primary-subtle">
-                    <div class="card-body">
-                        <h5 class="card-title">Lega</h5>
-                        <p class="card-text">Iscriviti o crea la tua prima lega, potrai giocare in compagnia dei
-                            tuoi amici!<br>
-                            Sfidali e scoprirai chi è quello che di calcio in fin dei conti ne sa di più.
-                        </p>
-                        <a href="archiveLeague.php" class="btn btn-outline-success">Iscriviti</a>
-                        <a href="createLeague.php" class="btn btn-outline-success">Crea</a>
-                    </div>
-                </div>
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col">
+                <h2>Benvenuto: <b>Michele</b></h2>
             </div>
-            <div class="col" style="padding: 10px 0px;">
-                <div class="card w-50 h-100 bg-primary-subtle">
-                    <div class="card-body">
-                        <h5 class="card-title">Squadra</h5>
-                        <p class="card-text">Visualizza la tua squadra, se non la hai neancora creata, iscriviti ad una
-                            lega ed inizia a giocare!
-                            <br>
-                            Che Aspetti inizia ora?!
-                        </p>
-                        <a href="getMySquad.php" class="btn btn-outline-success">Visualizza</a>
-                    </div>
-                </div>
+            <div class="col">
+                <h2>La tua squadra è: <b>Abdex</b></h2>
             </div>
-            <div class="col" style="padding: 10px 0px;">
-                <div class="card w-50 h-100 bg-primary-subtle">
-                    <div class="card-body">
-                        <h5 class="card-title">Campionato</h5>
-                        <p class="card-text">Visualizza il tuo campionato, e scopri quale squadra stai sfidando, chi
-                            avrà fatto le scelte tattiche migliori?
-                            <br>
-                            Che Aspetti inizia ora?!
-                        </p>
-                        <?php if (empty($_SESSION['id_league']) || empty($_SESSION['id_squad'])): ?>
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                                data-bs-target="#staticBackdrop">
-                                Visualizza
-                            </button>
+        </div>
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Non sei iscritto ad una
-                                                lega!
-                                            </h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>Non puoi visualizzare il campionato se non sei iscritto ad una lega.
-                                            </p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Close</button>
+        <div class="container" style="padding: 30px 10px; ">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-2">
+                <div class="col">
+                    <div class="card w-auto h-auto bg-primary-subtle">
+                        <div class="card-body">
+                            <h5 class="card-title">Lega</h5>
+                            <p class="card-text">Iscriviti o crea la tua prima lega, potrai giocare in compagnia dei
+                                tuoi amici!<br>
+                                Sfidali e scoprirai chi è quello che di calcio in fin dei conti ne sa di più.
+                            </p>
+                            <a href="archiveLeague.php" class="btn btn-outline-success">Iscriviti</a>
+                            <a href="createLeague.php" class="btn btn-outline-success">Crea</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card w-auto h-auto bg-primary-subtle">
+                        <div class="card-body">
+                            <h5 class="card-title">Squadra</h5>
+                            <p class="card-text">Visualizza la tua squadra, se non la hai neancora creata, iscriviti ad
+                                una
+                                lega ed inizia a giocare!
+                                <br>
+                                Che Aspetti inizia ora?!
+                            </p>
+                            <a href="getMySquad.php" class="btn btn-outline-success">Visualizza</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card w-auto h-auto bg-primary-subtle">
+                        <div class="card-body">
+                            <h5 class="card-title">Campionato</h5>
+                            <p class="card-text">Visualizza il tuo campionato, e scopri quale squadra stai sfidando, chi
+                                avrà fatto le scelte tattiche migliori?
+                                <br>
+                                Che Aspetti inizia ora?!
+                            </p>
+                            <?php if (empty($_SESSION['id_league']) && empty($_SESSION['id_squad'])): ?>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                                    data-bs-target="#staticBackdrop">
+                                    Visualizza
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+                                    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Non sei iscritto ad
+                                                    una
+                                                    lega!
+                                                </h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Non puoi visualizzare il campionato se non sei iscritto ad una lega.
+                                                </p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        <?php endif ?>
-                        <?php if (!empty($_SESSION['id_league']) || !empty($_SESSION['id_squad'])): ?>
-                            <a href="#" class="btn btn-outline-success">Visualizza</a>
-                        <?php endif ?>
+                            <?php endif ?>
+                            <?php if (!empty($_SESSION['id_league']) || !empty($_SESSION['id_squad'])): ?>
+                                <a href="#" class="btn btn-outline-success">Visualizza</a>
+                            <?php endif ?>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col" style="padding: 10px 0px;">
-                <div class="card w-50 h-100 bg-primary-subtle">
-                    <div class="card-body">
-                        <h5 class="card-title">Classifica</h5>
-                        <p class="card-text">Scopri chi è in vetta al tuo campionato, e fissati dei nuovi obiettivi da
-                            superare.
-                            <br>
-                            Sarai un allenatore all'altezza!?
-                        </p>
-                        <?php if (empty($_SESSION['id_league']) || empty($_SESSION['id_squad'])): ?>
-                            <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                                data-bs-target="#staticBackdrop">
-                                Visualizza
-                            </button>
+                <div class="col">
+                    <div class="card w-auto h-auto bg-primary-subtle">
+                        <div class="card-body">
+                            <h5 class="card-title">Classifica</h5>
+                            <p class="card-text">Scopri chi è in vetta al tuo campionato, e fissati dei nuovi obiettivi
+                                da
+                                superare.
+                                <br>
+                                Sarai un allenatore all'altezza!?
+                            </p>
+                            <?php if (empty($_SESSION['id_league']) && empty($_SESSION['id_squad'])): ?>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                                    data-bs-target="#staticBackdrop">
+                                    Visualizza
+                                </button>
 
-                            <!-- Modal -->
-                            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                                tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Non sei iscritto ad una
-                                                lega!
-                                            </h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>Non puoi visualizzare la classifica se non sei iscritto ad una lega.
-                                            </p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Close</button>
+                                <!-- Modal -->
+                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+                                    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Non sei iscritto ad
+                                                    una
+                                                    lega!
+                                                </h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Non puoi visualizzare la classifica se non sei iscritto ad una lega.
+                                                </p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        <?php endif ?>
-                        <?php if (!empty($_SESSION['id_league']) || !empty($_SESSION['id_squad'])): ?>
-                            <a href="getRanking.php" class="btn btn-outline-success">Visualizza</a>
-                        <?php endif ?>
+                            <?php endif ?>
+                            <?php if (!empty($_SESSION['id_league']) || !empty($_SESSION['id_squad'])): ?>
+                                <a href="getRanking.php" class="btn btn-outline-success">Visualizza</a>
+                            <?php endif ?>
+                        </div>
                     </div>
                 </div>
             </div>
