@@ -23,8 +23,8 @@ if (empty($_SESSION['user_id'])) {
 <body>
     <?php require_once(__DIR__ . '\navbar.php'); ?>
 
-    <div class="container mt-3">
-        <div class="row">
+    <div class="container px-3 mt-3">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-2">
             <div class="col">
                 <h2>Benvenuto: <b>Michele</b></h2>
             </div>
@@ -33,10 +33,10 @@ if (empty($_SESSION['user_id'])) {
             </div>
         </div>
 
-        <div class="container" style="padding: 30px 10px; ">
+        <div class="container px-3 pt-4 mb-5 pb-5">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-2">
                 <div class="col">
-                    <div class="card w-auto h-auto bg-primary-subtle">
+                    <div class="card w-auto h-100 bg-primary-subtle">
                         <div class="card-body">
                             <h5 class="card-title">Lega</h5>
                             <p class="card-text">Iscriviti o crea la tua prima lega, potrai giocare in compagnia dei
@@ -49,7 +49,7 @@ if (empty($_SESSION['user_id'])) {
                     </div>
                 </div>
                 <div class="col">
-                    <div class="card w-auto h-auto bg-primary-subtle">
+                    <div class="card w-auto h-100 bg-primary-subtle">
                         <div class="card-body">
                             <h5 class="card-title">Squadra</h5>
                             <p class="card-text">Visualizza la tua squadra, se non la hai neancora creata, iscriviti ad
@@ -63,7 +63,7 @@ if (empty($_SESSION['user_id'])) {
                     </div>
                 </div>
                 <div class="col">
-                    <div class="card w-auto h-auto bg-primary-subtle">
+                    <div class="card w-auto h-100 bg-primary-subtle">
                         <div class="card-body">
                             <h5 class="card-title">Campionato</h5>
                             <p class="card-text">Visualizza il tuo campionato, e scopri quale squadra stai sfidando, chi
@@ -111,7 +111,7 @@ if (empty($_SESSION['user_id'])) {
                     </div>
                 </div>
                 <div class="col">
-                    <div class="card w-auto h-auto bg-primary-subtle">
+                    <div class="card w-auto h-100 bg-primary-subtle">
                         <div class="card-body">
                             <h5 class="card-title">Classifica</h5>
                             <p class="card-text">Scopri chi è in vetta al tuo campionato, e fissati dei nuovi obiettivi
