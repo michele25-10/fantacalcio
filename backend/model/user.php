@@ -35,5 +35,16 @@ class User extends BaseController
         $result = $this->conn->query($sql);
         return $result;
     }
+    function infoHomePage($id)
+    {
+        $sql = "select distinct u.nickname, s.name
+                from user u
+                inner join squad s on s.id_user = u.id
+                inner join squad_league sl on s.id = sl.id_squad
+                inner join league l on l.id = sl.id_league
+                where u.id = '" . $id . "' and l.status = 0;";
+        return $sql;
+
+    }
 }
 ?>

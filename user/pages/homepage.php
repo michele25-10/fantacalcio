@@ -22,16 +22,27 @@ if (empty($_SESSION['user_id'])) {
 
 <body>
     <?php require_once(__DIR__ . '\navbar.php'); ?>
-
-    <div class="container px-3 mt-3">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-2">
-            <div class="col">
-                <h2>Benvenuto: <b>Michele</b></h2>
+    <?php
+    include_once dirname(__FILE__) . '/../function/user.php';
+    if (!empty($_SESSION['id_squad']) && !empty($_SESSION['id_league'])) {
+        $info = infoHomePage($_SESSION['user_id']);
+    }
+    ?>
+    <?php if (!empty($_SESSION['id_squad']) && !empty($_SESSION['id_league'])): ?>
+        <div class="container px-3 mt-3">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-2">
+                <div class="col">
+                    <h2>Benvenuto: <b>
+                            <?php echo ($info[0]['nickname']) ?>
+                        </b></h2>
+                </div>
+                <div class="col">
+                    <h2>La tua squadra è: <b>
+                            <?php echo $info[0]['name'] ?>
+                        </b></h2>
+                </div>
             </div>
-            <div class="col">
-                <h2>La tua squadra è: <b>Abdex</b></h2>
-            </div>
-        </div>
+        <?php endif ?>
 
         <div class="container px-3 pt-4 mb-5 pb-5">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-2">
@@ -58,7 +69,42 @@ if (empty($_SESSION['user_id'])) {
                                 <br>
                                 Che Aspetti inizia ora?!
                             </p>
-                            <a href="getMySquad.php" class="btn btn-outline-success">Visualizza</a>
+                            <?php if (empty($_SESSION['id_league']) && empty($_SESSION['id_squad'])): ?>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-outline-success" data-bs-toggle="modal"
+                                    data-bs-target="#staticBackdrop">
+                                    Visualizza
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"
+                                    data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="staticBackdropLabel">Non sei iscritto ad
+                                                    una
+                                                    lega!
+                                                </h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>Non puoi visualizzare il campionato se non sei iscritto ad una lega.
+                                                </p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endif ?>
+                            <?php if (!empty($_SESSION['id_league']) || !empty($_SESSION['id_squad'])): ?>
+                                <a href="getMySquad.php" class="btn btn-outline-success">Visualizza</a>
+                            <?php endif ?>
                         </div>
                     </div>
                 </div>
