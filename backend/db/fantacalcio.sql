@@ -35,8 +35,7 @@ id_player			INT UNSIGNED NOT null
 );
 
 create table fantacalcio.player(
-id 					INT UNSIGNED NOT NULL   AUTO_INCREMENT  PRIMARY KEY,
-name				VARCHAR(30) not NULL,		
+id 					INT UNSIGNED NOT NULL   AUTO_INCREMENT  PRIMARY KEY,	
 surname				VARCHAR(30) not NULL,
 `role`				VARCHAR(30) not NULL
 );
@@ -44,10 +43,10 @@ surname				VARCHAR(30) not NULL,
 create table fantacalcio.`match`(
 id 					INT UNSIGNED NOT NULL   AUTO_INCREMENT  PRIMARY KEY,
 number_match 		int not null,
-id_squad1			INT UNSIGNED NOT null,
-id_squad2			INT UNSIGNED NOT null,
-score1				INT not null,
-score2				INT not null,
+id_squad1			INT UNSIGNED,
+id_squad2			INT UNSIGNED,
+score1				INT,
+score2				INT,
 id_league			INT UNSIGNED NOT null
 );
 
