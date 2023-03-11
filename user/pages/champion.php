@@ -44,7 +44,64 @@ if (empty($_SESSION['user_id'])) {
             </div>
         <?php endif ?>
 
+        <?php
+        include_once dirname(__FILE__) . '/../function/league.php';
+        $check = checkTrustee($_SESSION['user_id']);
+        ?>
 
+        <?php if ($check == 0): ?>
+            <form type="post">
+                <button class="btn btn-success mt-5">Simula una nuova giornata</button>
+            </form>
+        <?php endif ?>
+
+        <?php
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+        }
+        ?>
+
+        <div id="carouselExampleDark" class="carousel carousel-dark slide mt-5">
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-bs-interval="10000">
+                    <ol class="list-group list-group-numbered">
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">Subheading</div>
+                                Content for list item
+                            </div>
+                            <span class="badge bg-primary rounded-pill">14</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">Subheading</div>
+                                Content for list item
+                            </div>
+                            <span class="badge bg-primary rounded-pill">14</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold">Subheading</div>
+                                Content for list item
+                            </div>
+                            <span class="badge bg-primary rounded-pill">14</span>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="container d-flex justify-content-between mt-4">
+                <button class=" btn btn-primary prev" type="button" data-bs-target="#carouselExampleDark"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="btn btn-primary next" type="button" data-bs-target="#carouselExampleDark"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
 
     </div>
 

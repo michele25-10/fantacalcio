@@ -26,7 +26,7 @@
                         <a class="nav-link" href="archiveLeague.php">Leghe</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="cart.php">Giornate</a>
+                        <a class="nav-link" href="champion.php">Giornate</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="getMySquad.php">Squadra</a>

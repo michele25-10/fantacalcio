@@ -1,5 +1,5 @@
 <?php
-function getSquadJoinLeague($id_league)
+function getSquadJoinLeagueRosa($id_league)
 {
     $url = 'http://localhost/fantacalcio/backend/api/squad_league/getSquadJoinLeague.php?id_league=' . $id_league;
 

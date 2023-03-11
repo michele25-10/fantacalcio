@@ -31,7 +31,7 @@ if (empty($_SESSION['user_id'])) {
 
     <?php
     include_once dirname(__FILE__) . '/../function/rosa.php';
-    $squad = getSquadJoinLeague($_SESSION['id_league']);
+    $squad = getSquadJoinLeagueRosa($_SESSION['id_league']);
     ?>
 
     <div class="container position-relative">

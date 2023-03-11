@@ -105,10 +105,12 @@ if (empty($_SESSION['user_id'])) {
 
             if ($res_squad == "1" && $res_league == "1") {
                 $id_league = getLeagueByTrusteeId($_SESSION['user_id']);
-                if (getSquadId($_SESSION['user_id']) != "1" && $id_league == "-1") {
+                $id_squad = getSquadId($_SESSION['user_id']);
+                if ($id_squad != "1" && $id_league == "-1") {
                     echo ('<p class="text-danger">Errore nella creazione della squadra</p>');
                 } else {
                     $_SESSION['id_league'] = $id_league;
+                    $_SESSION['id_squad'] = $id_squad;
                     $data_join = array(
                         'id_squad' => $_SESSION['id_squad'],
                         'id_league' => $_SESSION['id_league'],
