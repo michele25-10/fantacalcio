@@ -6,6 +6,9 @@ include_once dirname(__FILE__) . '/../../common/connect.php';
 include_once dirname(__FILE__) . '/../../model/match.php';
 include_once dirname(__FILE__) . '/../../model/base.php';
 include_once dirname(__FILE__) . '/../../model/squad_league.php';
+include_once dirname(__FILE__) . '/../../model/squad.php';
+include_once dirname(__FILE__) . '/../../model/league.php';
+
 
 if (!isset($_GET['id_league']) || ($id_league = explode("?id_league=", $_SERVER['REQUEST_URI'])[1]) == null) {
     http_response_code(400);
@@ -31,10 +34,15 @@ if (mysqli_num_rows($result) > 0) {
 
 if ($number_match == 38) {
     //termina la lega
-    //updateStatus
+    $league = new League($conn);
+    $query = $league->closeLeague($id_league);
+    $result = $conn->query($query);
+    echo json_encode(["message" => "Campionato concluso"]);
 } else {
-    $league = new Squad_League($conn);
-    $query = $league->getSquadJoinLeagueMatch($id_league);
+    $squad_league = new Squad_League($conn);
+    $squad = new Squad($conn);
+
+    $query = $squad_league->getSquadJoinLeagueMatch($id_league);
     $result = $conn->query($query);
 
     if (mysqli_num_rows($result) > 0) {
@@ -45,31 +53,24 @@ if ($number_match == 38) {
             array_push($squads_arr, $squad_arr);
         }
     }
-    $squads2_arr = $squads_arr;
-    shuffle($squads2_arr);
+
     $lunghezza = count($squads_arr);
 
-    for ($x = 0; $x < $lunghezza; $x) {
-        if ($squads_arr[$x] == $squads2_arr[$x]) {
-            $score1 = rand(0, 150);
-            $id_squad1 = $squads_arr[$x];
-            $number_match = $number_match + 1;
+    for ($x = 0; $x < $lunghezza; $x++) {
 
-            //uno scontro da solo
-        } else {
-            // query di inserimento nel db della giornata
-            $score1 = rand(0, 150);
-            $score2 = rand(0, 150);
-            $number_match = $number_match + 1;
-            $id_squad1 = $squads_arr[$x];
-            $id_squad2 = $squads2_arr[$x];
+        // query di inserimento nel db della giornata
+        $score = rand(0, 150);
+        $number_match = $number_match + 1;
+        $id_squad = $squads_arr[$x];
 
-            $query = $match->createMatch($number_match, $id_squad1, $id_squad2, $score1, $score2, $id_league);
-            var_dump($query);
-            $result = $conn->query($query);
+        $query = $match->createMatch($number_match, $id_squad, $score, $id_league); //Insert dei punteggi della squadra nella giornata simulata
+        $result = $conn->query($query);
 
-        }
+        $query = $squad->updateScore($id_squad, $score); //update punteggi della squadra nella tabella squad
+        $result = $conn->query($query);
     }
+
+    echo json_encode(["message" => "1"]);
 
 }
 

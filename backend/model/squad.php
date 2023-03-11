@@ -52,5 +52,10 @@ class Squad
         order by p.surname asc;";
         return $sql;
     }
+    function updateScore($id_squad, $score)
+    {
+        $sql = "UPDATE fantacalcio.squad SET score= (SELECT score FROM squad WHERE id = '" . $id_squad . "') + " . $score . " where id='" . $id_squad . "';";
+        return $sql;
+    }
 }
 ?>

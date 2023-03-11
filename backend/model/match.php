@@ -26,10 +26,10 @@ class Matches
         $sql = "SELECT max(number_match) as 'numbermatch' FROM fantacalcio.`match` where id_league='" . $id_league . "';";
         return $sql;
     }
-    function createMatch($number_match, $id_squad1, $id_squad2, $score1, $score2, $id_league)
+    function createMatch($number_match, $id_squad, $score, $id_league)
     {
-        $sql = "insert into fantacalcio.match(number_match, id_squad1, id_squad2, score1, score2, league)
-                values('" . $number_match . "', '" . $id_squad1 . "', '" . $id_squad2 . "', '" . $score1 . "', '" . $score2 . "', '" . $id_league . "');";
+        $sql = "insert into fantacalcio.match(number_match, id_squad, score, id_league)
+                values('" . $number_match . "', '" . $id_squad . "','" . $score . "','" . $id_league . "');";
         return $sql;
     }
 }
