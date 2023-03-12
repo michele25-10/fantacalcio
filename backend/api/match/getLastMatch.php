@@ -7,11 +7,22 @@ include_once dirname(__FILE__) . '/../../common/connect.php';
 include_once dirname(__FILE__) . '/../../model/match.php';
 include_once dirname(__FILE__) . '/../../model/base.php';
 
+if (!isset($_GET['id_league']) || ($id_league = explode("?id_league=", $_SERVER['REQUEST_URI'])[1]) == null) {
+    http_response_code(400);
+    echo json_encode("Non ci sono abbastanza campi per la ricerca");
+    die();
+}
+if (!isset($_GET['number_match']) || ($number_match = explode("&number_match=", $_SERVER['REQUEST_URI'])[1]) == null) {
+    http_response_code(400);
+    echo json_encode("Non ci sono abbastanza campi per la ricerca");
+    die();
+}
+
 $dtbase = new Database();
 $conn = $dtbase->connect();
 
 $match = new Matches($conn);
-$query = $match->getLastMatch();
+$query = $match->getLastMatch($id_league, $number_match);
 $result = $conn->query($query);
 
 if (mysqli_num_rows($result) > 0) {
@@ -19,13 +30,8 @@ if (mysqli_num_rows($result) > 0) {
     while ($row = $result->fetch_assoc()) {
         extract($row);
         $match_arr = array(
-            'id' => $id,
-            'number_match' => $number_match,
-            'id_squad1' => $id_squad1,
-            'id_squad2' => $id_squad2,
-            'score1' => $score1,
-            'score2' => $score2,
-            'id_league' => $id_league,
+            'name' => $name,
+            'score' => $score,
         );
         array_push($matches_arr, $match_arr);
     }
@@ -33,7 +39,7 @@ if (mysqli_num_rows($result) > 0) {
     echo (json_encode($matches_arr, JSON_PRETTY_PRINT));
 } else {
     http_response_code(400);
-    echo json_encode(["message" => "-1"]);
+    echo json_encode("-1");
 }
 
 

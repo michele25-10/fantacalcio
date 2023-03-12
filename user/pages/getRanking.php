@@ -77,8 +77,8 @@ if (empty($_SESSION['user_id'])) {
                 <div class="progress" role="progressbar" aria-label="Basic example"
                     aria-valuenow="<?php echo ($numbermatch) ?>" aria-valuemin="0" aria-valuemax="38">
                     <?php
-                    $area = $numbermatch / 38
-                        ?>
+                    $area = ($numbermatch / 38) * 100;
+                    ?>
                     <div class="progress-bar" style="width: <?php echo ($area) ?>%"></div>
                 </div>
             </div>

@@ -8,7 +8,7 @@ if (empty($_SESSION['user_id'])) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Fantacalcio | Leghe</title>
+    <title>Fantacalcio | Campionato</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="../assets/style.css">
@@ -26,7 +26,7 @@ if (empty($_SESSION['user_id'])) {
     }
     ?>
 
-    <div class="container">
+    <div class="container px-3 py-3">
         <?php if ($numbermatch != -1): ?>
             <div class="container mt-3">
                 <h2>Giornata numero: <b>
@@ -37,7 +37,8 @@ if (empty($_SESSION['user_id'])) {
                 <div class="progress" role="progressbar" aria-label="Basic example"
                     aria-valuenow="<?php echo ($numbermatch) ?>" aria-valuemin="0" aria-valuemax="38">
                     <?php
-                    $area = $numbermatch / 38
+                    $area = ($numbermatch / 38)*100;
+
                         ?>
                     <div class="progress-bar" style="width: <?php echo ($area) ?>%"></div>
                 </div>
@@ -51,17 +52,24 @@ if (empty($_SESSION['user_id'])) {
 
         <?php if ($check == 0): ?>
             <form type="post">
-                <button class="btn btn-success mt-5">Simula una nuova giornata</button>
+                <button class="btn btn-success mt-3" type="submit">Simula una nuova giornata</button>
             </form>
         <?php endif ?>
 
         <?php
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
+            $res = simulateMatch($_SESSION['id_league']);
+            if ($res == "1"){
+                echo ('<p class="text-success">Giornata simulata con successo</p>');
+                header("Refresh:0");
+            }else{
+                echo ('<p class="text-danger">'.$res.'</p>');
+            }
         }
         ?>
 
-        <div id="carouselExampleDark" class="carousel carousel-dark slide mt-5">
+
+        <!--<div id="carouselExampleDark" class="carousel carousel-dark slide mt-5">
             <div class="carousel-inner">
                 <div class="carousel-item active" data-bs-interval="10000">
                     <ol class="list-group list-group-numbered">
@@ -102,7 +110,29 @@ if (empty($_SESSION['user_id'])) {
                 </button>
             </div>
         </div>
+    -->
+        <hr>
+        <h2> Punteggi della giornata:
+            <?php echo $numbermatch ?>
+        </h2>
 
+        <?php
+        $match = getLastMatch($_SESSION['id_league'], $numbermatch);
+        ?>
+        <?php if ($match != "-1"): ?>
+            <div class="container mt-4">
+                <ol class="list-group">
+                    <?php foreach ($match as $row): ?>
+                        <li class="list-group-item d-flex justify-content-between align-items-start">
+                            <div class="ms-2 me-auto">
+                                <div class="fw-bold"><?php echo($row['name'])?></div>
+                            </div>
+                            <span class="badge bg-primary rounded-pill"><?php echo($row['score'])?></span>
+                        </li>
+                    <?php endforeach ?>
+                </ol>
+            </div>
+        <?php endif ?>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"

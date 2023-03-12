@@ -55,12 +55,12 @@ if ($number_match == 38) {
     }
 
     $lunghezza = count($squads_arr);
+    $number_match = $number_match + 1;
 
     for ($x = 0; $x < $lunghezza; $x++) {
 
         // query di inserimento nel db della giornata
         $score = rand(0, 150);
-        $number_match = $number_match + 1;
         $id_squad = $squads_arr[$x];
 
         $query = $match->createMatch($number_match, $id_squad, $score, $id_league); //Insert dei punteggi della squadra nella giornata simulata

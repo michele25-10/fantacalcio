@@ -15,10 +15,12 @@ class Matches
         order by id desc";
         return $sql;
     }
-    function getLastMatch()
+    function getLastMatch($id_league, $number_match)
     {
-        $sql = "SELECT * FROM match
-        WHERE number_match = ( SELECT max(number_match) FROM match )";
+        $sql = "SELECT s.name, m.score
+        FROM fantacalcio.`match` m
+        inner join fantacalcio.squad s on s.id = m.id_squad         
+        WHERE number_match = '" . $number_match . "' and id_league='" . $id_league . "';";
         return $sql;
     }
     function getLastNumberMatch($id_league)
