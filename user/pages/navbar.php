@@ -26,13 +26,22 @@
                         <a class="nav-link" href="archiveLeague.php">Leghe</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="champion.php">Giornate</a>
+
+                        <?php if (!empty($_SESSION['id_squad'])): ?>
+                            <a class="nav-link" href="champion.php">Giornate</a>
+                        <?php endif ?>
+
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="getMySquad.php">Squadra</a>
+                        <?php if (!empty($_SESSION['id_squad'])): ?>
+                            <a class="nav-link" href="getMySquad.php">Squadra</a>
+                        <?php endif ?>
+
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="getRanking.php">Classifica</a>
+                        <?php if (!empty($_SESSION['id_squad'])): ?>
+                            <a class="nav-link" href="getRanking.php">Classifica</a>
+                        <?php endif ?>
                     </li>
                     <?php
                     include_once dirname(__FILE__) . '/../function/league.php';

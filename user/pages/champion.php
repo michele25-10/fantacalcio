@@ -51,7 +51,7 @@ if (empty($_SESSION['user_id'])) {
         ?>
 
         <?php if ($check == 0): ?>
-            <form type="post">
+            <form method="post">
                 <button class="btn btn-success mt-3" type="submit">Simula una nuova giornata</button>
             </form>
         <?php endif ?>
@@ -59,11 +59,10 @@ if (empty($_SESSION['user_id'])) {
         <?php
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $res = simulateMatch($_SESSION['id_league']);
-            if ($res == "1"){
-                echo ('<p class="text-success">Giornata simulata con successo</p>');
+            if ($res['message'] == "1"){
                 header("Refresh:0");
             }else{
-                echo ('<p class="text-danger">'.$res.'</p>');
+                echo ('<p class="text-danger">'.$res['message'].'</p>');
             }
         }
         ?>
