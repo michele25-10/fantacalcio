@@ -37,9 +37,9 @@ if (empty($_SESSION['user_id'])) {
                 <div class="progress" role="progressbar" aria-label="Basic example"
                     aria-valuenow="<?php echo ($numbermatch) ?>" aria-valuemin="0" aria-valuemax="38">
                     <?php
-                    $area = ($numbermatch / 38)*100;
+                    $area = ($numbermatch / 38) * 100;
 
-                        ?>
+                    ?>
                     <div class="progress-bar" style="width: <?php echo ($area) ?>%"></div>
                 </div>
             </div>
@@ -59,57 +59,14 @@ if (empty($_SESSION['user_id'])) {
         <?php
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $res = simulateMatch($_SESSION['id_league']);
-            if ($res['message'] == "1"){
+            if ($res['message'] == "1") {
                 header("Refresh:0");
-            }else{
-                echo ('<p class="text-danger">'.$res['message'].'</p>');
+            } else {
+                echo ('<p class="text-danger">' . $res['message'] . '</p>');
             }
         }
         ?>
 
-
-        <!--<div id="carouselExampleDark" class="carousel carousel-dark slide mt-5">
-            <div class="carousel-inner">
-                <div class="carousel-item active" data-bs-interval="10000">
-                    <ol class="list-group list-group-numbered">
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold">Subheading</div>
-                                Content for list item
-                            </div>
-                            <span class="badge bg-primary rounded-pill">14</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold">Subheading</div>
-                                Content for list item
-                            </div>
-                            <span class="badge bg-primary rounded-pill">14</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold">Subheading</div>
-                                Content for list item
-                            </div>
-                            <span class="badge bg-primary rounded-pill">14</span>
-                        </li>
-                    </ol>
-                </div>
-            </div>
-            <div class="container d-flex justify-content-between mt-4">
-                <button class=" btn btn-primary prev" type="button" data-bs-target="#carouselExampleDark"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="btn btn-primary next" type="button" data-bs-target="#carouselExampleDark"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        </div>
-    -->
         <hr>
         <h2> Punteggi della giornata:
             <?php echo $numbermatch ?>
@@ -124,15 +81,55 @@ if (empty($_SESSION['user_id'])) {
                     <?php foreach ($match as $row): ?>
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div class="ms-2 me-auto">
-                                <div class="fw-bold"><?php echo($row['name'])?></div>
+                                <div class="fw-bold">
+                                    <?php echo ($row['name']) ?>
+                                </div>
                             </div>
-                            <span class="badge bg-primary rounded-pill"><?php echo($row['score'])?></span>
+                            <span class="badge bg-primary rounded-pill">
+                                <?php echo ($row['score']) ?>
+                            </span>
                         </li>
                     <?php endforeach ?>
                 </ol>
             </div>
         <?php endif ?>
+        <div>
+            <canvas class="mt-5" id="myChart"></canvas>
+        </div>
+
+        <?php
+        $j = 0; foreach ($match as $row) {
+            $x[$j] = $row['name'];
+            $y[$j] = $row['score'];
+        }
+        ?>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script>
+            const ctx = document.getElementById('myChart');
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                    datasets: [{
+                        label: '# of Votes',
+                        data: [12, 19, 3, 5, 2, 3],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        </script>
     </div>
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
