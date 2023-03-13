@@ -34,13 +34,15 @@ if (empty($_SESSION['user_id'])) {
                     </b>
                 </h2>
 
-                <div class="progress" role="progressbar" aria-label="Basic example"
-                    aria-valuenow="<?php echo ($numbermatch) ?>" aria-valuemin="0" aria-valuemax="38">
+                <div class="progress" id="league" value="<?php echo $_SESSION['id_league'] ?>" role="progressbar"
+                    aria-label="Basic example" aria-valuenow="<?php echo ($numbermatch) ?>" aria-valuemin="0"
+                    aria-valuemax="38">
                     <?php
                     $area = ($numbermatch / 38) * 100;
 
                     ?>
-                    <div class="progress-bar" style="width: <?php echo ($area) ?>%"></div>
+                    <div class="progress-bar" id="progress-matches" value="<?php echo ($numbermatch) ?>"
+                        style="width: <?php echo ($area) ?>%"></div>
                 </div>
             </div>
         <?php endif ?>
@@ -93,43 +95,48 @@ if (empty($_SESSION['user_id'])) {
                 </ol>
             </div>
         <?php endif ?>
+
         <div>
             <canvas class="mt-5" id="myChart"></canvas>
         </div>
 
-        <?php
-        $j = 0; foreach ($match as $row) {
-            $x[$j] = $row['name'];
-            $y[$j] = $row['score'];
-        }
-        ?>
+        <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-        <script>
+        <script type="text/javascript">
+            var bar_progress = document.getElementById("progress-matches");
+            var num = bar_progress.getAttribute("value");
+            var league = document.getElementById("league");
+            var id_league = league.getAttribute("value");
+
             const ctx = document.getElementById('myChart');
 
-            new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                    datasets: [{
-                        label: '# of Votes',
-                        data: [12, 19, 3, 5, 2, 3],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    scales: {
-                        y: {
-                            beginAtZero: true
+            fetch("http://localhost/fantacalcio/backend/api/match/getLastMatch.php?id_league=" + id_league + "&number_match=" + num)
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: data.map(row => row.name),
+                            datasets: [{
+                                label: 'Punteggi',
+                                data: data.map(row => row.score),
+                                borderWidth: 1
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            },
+                            backgroundColor: '#FFB1C1',
                         }
-                    }
-                }
-            });
+                    });
+                });
         </script>
     </div>
-
-
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
