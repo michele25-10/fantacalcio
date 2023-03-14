@@ -34,5 +34,13 @@ class Matches
                 values('" . $number_match . "', '" . $id_squad . "','" . $score . "','" . $id_league . "');";
         return $sql;
     }
+    function statsSquad($id_league, $id_squad)
+    {
+        $sql = "SELECT m.number_match , m.score  
+        from `match` m  
+        inner join league l on l.id = m.id_league 
+                WHERE m.id_league='" . $id_league . "' and l.status = '0' and m.id_squad = '" . $id_squad . "';";
+        return $sql;
+    }
 }
 ?>
