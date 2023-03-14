@@ -8,12 +8,12 @@ include_once dirname(__FILE__) . '/../../model/base.php';
 
 if (!isset($_GET['id_league']) || ($id_league = explode("?id_league=", $_SERVER['REQUEST_URI'])[1]) == null) {
     http_response_code(400);
-    echo json_encode(["message" => "Non ci sono abbastanza campi per la ricerca"]);
+    echo json_encode(["Non ci sono abbastanza campi per la ricerca"]);
     die();
 }
 if (!isset($_GET['id_squad']) || ($id_squad = explode("&id_squad=", $_SERVER['REQUEST_URI'])[1]) == null) {
     http_response_code(400);
-    echo json_encode(["message" => "Non ci sono abbastanza campi per la ricerca"]);
+    echo json_encode(["Non ci sono abbastanza campi per la ricerca"]);
     die();
 }
 
@@ -30,7 +30,7 @@ if (mysqli_num_rows($result) > 0) {
         extract($row);
         $match_arr = array(
             'number_match' => $number_match,
-            'score' => $score1,
+            'score' => $score,
         );
         array_push($matches_arr, $match_arr);
     }
@@ -38,7 +38,7 @@ if (mysqli_num_rows($result) > 0) {
     echo (json_encode($matches_arr, JSON_PRETTY_PRINT));
 } else {
     http_response_code(400);
-    echo json_encode(["message" => "-1"]);
+    echo json_encode("-1");
 }
 
 

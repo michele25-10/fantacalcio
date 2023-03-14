@@ -56,9 +56,77 @@ if (empty($_SESSION['user_id'])) {
                 <img src="../assets/img/campoDaCalcio.webp" class="img-fluid" alt="Campo da calcio">
             </div>
         </div>
+        <div class="container mt-5 mb-4">
+            <div id="league" value="<?php echo $_SESSION['id_league'] ?>"></div>
+            <div id="squad" value="<?php echo $_SESSION['id_squad'] ?>"></div>
+            <canvas class="mt-5" id="myChart"></canvas>
+        </div>
     </div>
 
-    <?php // require_once(__DIR__ . '\footer.php'); ?>
+
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script type="text/javascript">
+        var div_league = document.getElementById("league");
+        var id_league = div_league.getAttribute("value");
+        var div_squad = document.getElementById("squad");
+        var id_squad = div_squad.getAttribute("value");
+        const ctx = document.getElementById('myChart');
+
+        fetch("http://localhost/fantacalcio/backend/api/match/statsSquad.php?id_league=" + id_league + "&id_squad=" + id_squad)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: data.map(row => row.number_match),
+                        datasets: [{
+                            label: 'Punti',
+                            data: data.map(row => row.score),
+                            borderWidth: 1,
+                            fill: false,
+                            cubicInterpolationMode: 'monotone',
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Andamento della tua squadra'
+                            },
+                        },
+                        interaction: {
+                            mode: 'index',
+                            intersect: false
+                        },
+                        scales: {
+                            x: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Punteggi'
+                                }
+                            },
+                            y: {
+                                display: true,
+                                title: {
+                                    display: true,
+                                    text: 'Giornate'
+                                }
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 150
+                        }
+                    }
+
+                });
+            });
+    </script>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
