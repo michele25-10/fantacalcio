@@ -1,5 +1,6 @@
 <?php
 session_start();
+error_reporting(0);
 if (empty($_SESSION['user_id'])) {
     header('location: ../index.php');
 }
@@ -27,7 +28,7 @@ if (empty($_SESSION['user_id'])) {
     <div class="container mt-3">
         <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 g-2">
             <div class="col">
-                <h2>Lega: <b>
+                <h2 class="mt-5">Lega: <b>
                         <?php echo ($_GET['name']) ?>
                     </b></h2>
                 <?php if ($squad != -1): ?>
@@ -99,43 +100,42 @@ if (empty($_SESSION['user_id'])) {
                 </form>
             </div>
         </div>
-    </div>
 
-    <?php
-    include_once dirname(__FILE__) . '/../function/squad.php';
+        <?php
+        include_once dirname(__FILE__) . '/../function/squad.php';
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $data_squad = array(
-            'name' => $_POST['name_squad'],
-            'id_user' => $_SESSION['user_id'],
-        );
-        $res_squad = createSquad($data_squad);
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $data_squad = array(
+                'name' => $_POST['name_squad'],
+                'id_user' => $_SESSION['user_id'],
+            );
+            $res_squad = createSquad($data_squad);
 
-        if ($res_squad != "1") {
-            echo ('<p class="text-danger">Errore nella creazione della squadra</p>');
-        }
-        if ($res_squad == "1") {
-            $id_squad = getSquadId($_SESSION['user_id']);
-            if ($id_squad == "-1") {
+            if ($res_squad != "1") {
                 echo ('<p class="text-danger">Errore nella creazione della squadra</p>');
-            } else {
-                $_SESSION['id_squad'] = $id_squad;
-                $data_join = array(
-                    'id_squad' => $_SESSION['id_squad'],
-                    'id_league' => $_GET['id_league'],
-                );
-
-                if (joinLeague($data_join) == 1) {
-                    $_SESSION['id_league'] = $_GET['id_league'];
-                    echo ('<p class="text-success">La tua squadra è stata iscritta alla lega</p>');
-                } else {
-                    echo ('<p class="text-danger">Errore nella iscrizione della tua squadra nella lega</p>');
-                }
             }
+            if ($res_squad == "1") {
+                $id_squad = getSquadId($_SESSION['user_id']);
+                if ($id_squad == "-1") {
+                    echo ('<p class="text-danger">Errore nella creazione della squadra</p>');
+                } else {
+                    $_SESSION['id_squad'] = $id_squad;
+                    $data_join = array(
+                        'id_squad' => $_SESSION['id_squad'],
+                        'id_league' => $_GET['id_league'],
+                    );
 
+                    if (joinLeague($data_join) == 1) {
+                        $_SESSION['id_league'] = $_GET['id_league'];
+                        echo ('<p class="text-success">La tua squadra è stata iscritta alla lega</p>');
+                    } else {
+                        echo ('<p class="text-danger">Errore nella iscrizione della tua squadra nella lega</p>');
+                    }
+                }
+
+            }
         }
-    }
-    ?>
+        ?>
 
     </div>
 

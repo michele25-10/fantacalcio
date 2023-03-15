@@ -42,7 +42,7 @@ function getSquadId($id)
 
     $json_data = file_get_contents($url);
     $decode_data = json_decode($json_data, $assoc = true);
-    if ($decode_data['message'] == "-2") {
+    if ($decode_data == "-2") {
         return -2;
     } else {
         if ($json_data != false) {
@@ -134,18 +134,22 @@ function getPlayerOfSquad($id_squad)
     $decode_data = json_decode($json_data, $assoc = true);
 
     $player_data = $decode_data;
-    $players_arr = array();
-    if (!empty($player_data)) {
-        foreach ($player_data as $player) {
-            $player_record = array(
-                'id' => $player['id'],
-                'surname' => $player['surname'],
-                'role' => $player['role'],
-            );
-            array_push($players_arr, $player_record);
-        }
+    if ($player_data != "-2") {
+        $players_arr = array();
+        if (!empty($player_data)) {
+            foreach ($player_data as $player) {
+                $player_record = array(
+                    'id' => $player['id'],
+                    'surname' => $player['surname'],
+                    'role' => $player['role'],
+                );
+                array_push($players_arr, $player_record);
+            }
 
-        return $players_arr;
+            return $players_arr;
+        } else {
+            return -1;
+        }
     } else {
         return -1;
     }

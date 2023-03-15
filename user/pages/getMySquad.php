@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+error_reporting(0);
 if (empty($_SESSION['user_id'])) {
     header('location: ../login.php');
 }
@@ -26,7 +27,9 @@ if (empty($_SESSION['user_id'])) {
     <?php
     include_once dirname(__FILE__) . '/../function/squad.php';
     include_once dirname(__FILE__) . '/../function/player.php';
+    include_once dirname(__FILE__) . '/../function/match.php';
     $squad = getSquadById($_SESSION['id_squad']);
+    $numbermatch = getLastNumberMatch($_SESSION['id_league']);
     ?>
 
     <div class="container pt-3 px-5">
@@ -40,27 +43,33 @@ if (empty($_SESSION['user_id'])) {
                 <?php
                 $player = getPlayerOfSquad($_SESSION['id_squad']);
                 ?>
-                <ul class="list-group">
-                    <?php foreach ($player as $row): ?>
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <?php echo ($row['surname']) ?>
-                            <span class="badge bg-primary px-3 py-3">
-                                <?php echo ($row['role']) ?>
-                            </span>
-                        </li>
-                    <?php endforeach ?>
-                </ul>
-
+                <?php if ($player == -1): ?>
+                    <p class="text-danger">Non sono ancora stati inseriti i giocatori nella tua squadra</p>
+                <?php endif ?>
+                <?php if ($player != -1): ?>
+                    <ul class="list-group">
+                        <?php foreach ($player as $row): ?>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <?php echo ($row['surname']) ?>
+                                <span class="badge bg-primary px-3 py-3">
+                                    <?php echo ($row['role']) ?>
+                                </span>
+                            </li>
+                        <?php endforeach ?>
+                    </ul>
+                <?php endif ?>
             </div>
-            <div class="col d-flex justify-content-center">
+            <div class="col d-flex justify-content-center mb-3">
                 <img src="../assets/img/campoDaCalcio.webp" class="img-fluid" alt="Campo da calcio">
             </div>
         </div>
-        <div class="container mt-5 mb-4">
-            <div id="league" value="<?php echo $_SESSION['id_league'] ?>"></div>
-            <div id="squad" value="<?php echo $_SESSION['id_squad'] ?>"></div>
-            <canvas class="mt-5" id="myChart"></canvas>
-        </div>
+        <?php if ($numbermatch != -1): ?>
+            <div class="container mt-5 mb-4">
+                <div id="league" value="<?php echo $_SESSION['id_league'] ?>"></div>
+                <div id="squad" value="<?php echo $_SESSION['id_squad'] ?>"></div>
+                <canvas class="mt-5" id="myChart"></canvas>
+            </div>
+        <?php endif ?>
     </div>
 
 

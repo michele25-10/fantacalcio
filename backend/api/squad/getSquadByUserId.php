@@ -35,7 +35,7 @@ if (mysqli_num_rows($result) > 0) {
     http_response_code(200);
     echo (json_encode($squads_arr, JSON_PRETTY_PRINT));
 } else {
-    echo json_encode(["message" => "-2"]);
+    echo json_encode("-2");
 }
 
 $conn->close();

@@ -28,6 +28,7 @@
 
         <?php
         session_start();
+        error_reporting(0);
 
         include_once dirname(__FILE__) . '\function\user.php';
         include_once dirname(__FILE__) . '\function\squad.php';

@@ -6,7 +6,12 @@ function getLastNumberMatch($id_league)
     $json_data = file_get_contents($url);
     $decode_data = json_decode($json_data, $assoc = true);
     $match = $decode_data['message'];
-    return $match;
+
+    if ($match == NULL) {
+        return -1;
+    } else {
+        return $match;
+    }
 }
 
 function getLastMatch($id_league, $number_match)

@@ -1,5 +1,6 @@
 <?php
 session_start();
+//error_reporting(0);
 if (empty($_SESSION['user_id'])) {
     header('location: ../login.php');
 }
@@ -17,14 +18,6 @@ if (empty($_SESSION['user_id'])) {
 
 <body>
     <?php require_once(__DIR__ . '\navbar.php'); ?>
-
-    <?php
-    include_once dirname(__FILE__) . '/../function/match.php';
-    $numbermatch = getLastNumberMatch($_SESSION['id_league']);
-    if ($numbermatch == -1) {
-        echo ('<p class="text-danger">Non sono state ancora simulate le prime partite.</p>');
-    }
-    ?>
 
     <div class="container px-3 py-3">
 
@@ -63,38 +56,19 @@ if (empty($_SESSION['user_id'])) {
 
         <?php if ($check == 0): ?>
             <form method="post">
-                <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                    type="submit">Simula una nuova giornata</button>
+                <button class="btn btn-success mt-3" type="submit">Simula una nuova giornata</button>
             </form>
         <?php endif ?>
 
         <?php
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $res = simulateMatch($_SESSION['id_league']);
-            var_dump($res['message']);
             if ($res['message'] == "1") {
                 header("Refresh:0");
             } elseif ($res['message'] == "Campionato concluso") {
                 unset($_SESSION['id_squad']);
                 unset($_SESSION['id_league']);
-                echo ('
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      ...
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                  </div>
-                </div>
-              </div>');
+                header('location: homepage.php');
             }
         }
         ?>
