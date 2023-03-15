@@ -31,43 +31,43 @@ if (empty($_SESSION['user_id'])) {
 
 
     <div class="container" style="padding: 30px 10px; ">
-        <h2>Classifica</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Posizione</th>
-                    <th scope="col">Nome Squadra</th>
-                    <th scope="col">Punteggio</th>
-                </tr>
-            </thead>
-            <tbody class="table-group-divider">
-                <?php foreach ($ranking as $row): ?>
-                    <tr>
-                        <td>
-                            <?php echo $i++ ?>
-                        </td>
-                        <td>
-                            <?php echo $row['name'] ?>
-                        </td>
-                        <td>
-                            <?php echo $row['score'] ?>
-                        </td>
-                    </tr>
-                <?php endforeach ?>
-            </tbody>
-        </table>
-    </div>
 
-    <?php
-    include_once dirname(__FILE__) . '/../function/match.php';
-    $numbermatch = getLastNumberMatch($_SESSION['id_league']);
-    if ($numbermatch == -1) {
-        echo ('<p class="text-danger">Errore</p>');
-    }
-    ?>
-
-    <div class="container">
+        <?php
+        include_once dirname(__FILE__) . '/../function/match.php';
+        $numbermatch = getLastNumberMatch($_SESSION['id_league']);
+        if ($numbermatch == -1) {
+            echo ('<p class="text-danger">Non sono state ancora simulate le prime partite.</p>');
+        }
+        ?>
         <?php if ($numbermatch != -1): ?>
+            <h2>Classifica</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Posizione</th>
+                        <th scope="col">Nome Squadra</th>
+                        <th scope="col">Punteggio</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    <?php foreach ($ranking as $row): ?>
+                        <tr>
+                            <td>
+                                <?php echo $i++ ?>
+                            </td>
+                            <td>
+                                <?php echo $row['name'] ?>
+                            </td>
+                            <td>
+                                <?php echo $row['score'] ?>
+                            </td>
+                        </tr>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="container">
             <div class="container mt-3">
                 <h2>Giornata numero: <b>
                         <?php echo ($numbermatch) ?>
@@ -82,11 +82,13 @@ if (empty($_SESSION['user_id'])) {
                     <div class="progress-bar" style="width: <?php echo ($area) ?>%"></div>
                 </div>
             </div>
-        <?php endif ?>
+        </div>
+    <?php endif ?>
+    </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
-            </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
+        </script>
 </body>
 
 </html>

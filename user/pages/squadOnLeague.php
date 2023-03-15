@@ -34,9 +34,9 @@ if (empty($_SESSION['user_id'])) {
     $squad = getSquadJoinLeagueRosa($_SESSION['id_league']);
     ?>
 
-    <div class="container position-relative">
+    <div class="container position-relative mt-4">
         <h2>Seleziona squadra per effettuare l'asta!</h2>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-1">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-1 g-1 mt-4">
             <?php foreach ($squad as $row): ?>
                 <div class="col">
                     <div class="card mb-3">

@@ -37,7 +37,7 @@ if (mysqli_num_rows($result) > 0) {
     echo (json_encode($leagues_arr, JSON_PRETTY_PRINT));
 } else {
     http_response_code(400);
-    echo json_encode(["message" => "-1"]);
+    echo json_encode("-1");
 }
 
 

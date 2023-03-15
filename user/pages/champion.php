@@ -22,11 +22,20 @@ if (empty($_SESSION['user_id'])) {
     include_once dirname(__FILE__) . '/../function/match.php';
     $numbermatch = getLastNumberMatch($_SESSION['id_league']);
     if ($numbermatch == -1) {
-        echo ('<p class="text-danger">Errore</p>');
+        echo ('<p class="text-danger">Non sono state ancora simulate le prime partite.</p>');
     }
     ?>
 
     <div class="container px-3 py-3">
+
+        <?php
+        include_once dirname(__FILE__) . '/../function/match.php';
+        $numbermatch = getLastNumberMatch($_SESSION['id_league']);
+        if ($numbermatch == -1) {
+            echo ('<p class="text-danger">Non sono state ancora simulate le prime partite.</p>');
+        }
+        ?>
+
         <?php if ($numbermatch != -1): ?>
             <div class="container mt-3">
                 <h2>Giornata numero: <b>
@@ -54,33 +63,35 @@ if (empty($_SESSION['user_id'])) {
 
         <?php if ($check == 0): ?>
             <form method="post">
-                <button class="btn btn-success mt-3" type="submit">Simula una nuova giornata</button>
+                <button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    type="submit">Simula una nuova giornata</button>
             </form>
         <?php endif ?>
 
         <?php
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $res = simulateMatch($_SESSION['id_league']);
+            var_dump($res['message']);
             if ($res['message'] == "1") {
                 header("Refresh:0");
             } elseif ($res['message'] == "Campionato concluso") {
                 unset($_SESSION['id_squad']);
                 unset($_SESSION['id_league']);
-                echo ('<div class="modal" tabindex="-1">
+                echo ('
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title">Campionato concluso</h5>
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      <p>Inizia un nuovo campionato</p>
+                      ...
                     </div>
                     <div class="modal-footer">
-                    <a href="homepage.php">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                       <button type="button" class="btn btn-primary">Save changes</button>
-                    </a>
-                      </div>
+                    </div>
                   </div>
                 </div>
               </div>');
@@ -89,35 +100,40 @@ if (empty($_SESSION['user_id'])) {
         ?>
 
         <hr>
-        <h2> Punteggi della giornata:
-            <?php echo $numbermatch ?>
-        </h2>
+        <?php if ($numbermatch != -1): ?>
 
-        <?php
-        $match = getLastMatch($_SESSION['id_league'], $numbermatch);
-        ?>
-        <?php if ($match != "-1"): ?>
-            <div class="container mt-4">
-                <ol class="list-group">
-                    <?php foreach ($match as $row): ?>
-                        <li class="list-group-item d-flex justify-content-between align-items-start">
-                            <div class="ms-2 me-auto">
-                                <div class="fw-bold">
-                                    <?php echo ($row['name']) ?>
+            <h2> Punteggi della giornata:
+                <?php echo $numbermatch ?>
+            </h2>
+
+            <?php
+            $match = getLastMatch($_SESSION['id_league'], $numbermatch);
+            ?>
+            <?php if ($match != "-1"): ?>
+                <div class="container mt-4">
+                    <ol class="list-group">
+                        <?php foreach ($match as $row): ?>
+                            <li class="list-group-item d-flex justify-content-between align-items-start">
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold">
+                                        <?php echo ($row['name']) ?>
+                                    </div>
                                 </div>
-                            </div>
-                            <span class="badge bg-primary rounded-pill">
-                                <?php echo ($row['score']) ?>
-                            </span>
-                        </li>
-                    <?php endforeach ?>
-                </ol>
+                                <span class="badge bg-primary rounded-pill">
+                                    <?php echo ($row['score']) ?>
+                                </span>
+                            </li>
+                        <?php endforeach ?>
+                    </ol>
+                </div>
+            <?php endif ?>
+
+            <div>
+                <canvas class="mt-5" id="myChart"></canvas>
             </div>
+
         <?php endif ?>
 
-        <div>
-            <canvas class="mt-5" id="myChart"></canvas>
-        </div>
 
         <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
