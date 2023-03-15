@@ -31,6 +31,13 @@ class Squad
                 Where id_user = " . $id_user . ";";
         return $sql;
     }
+    function getSquadByIdAndName($id, $name)
+    {
+        $sql = "SELECT id
+                FROM fantacalcio.squad
+                Where id_user = " . $id . " AND name='" . $name . "';";
+        return $sql;
+    }
     function getSquadById($id)
     {
         $sql = "

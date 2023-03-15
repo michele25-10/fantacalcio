@@ -105,8 +105,8 @@ if (empty($_SESSION['user_id'])) {
 
             if ($res_squad == "1" && $res_league == "1") {
                 $id_league = getLeagueByTrusteeId($_SESSION['user_id']);
-                $id_squad = getSquadId($_SESSION['user_id']);
-                if ($id_squad != "1" && $id_league == "-1") {
+                $id_squad = getSquadIdAndName($_SESSION['user_id'], $_POST['name_squad']);
+                if ($id_squad == "-1" || $id_league == "-1") {
                     echo ('<p class="text-danger">Errore nella creazione della squadra</p>');
                 } else {
                     $_SESSION['id_league'] = $id_league;
@@ -115,6 +115,8 @@ if (empty($_SESSION['user_id'])) {
                         'id_squad' => $_SESSION['id_squad'],
                         'id_league' => $_SESSION['id_league'],
                     );
+                    var_dump($data_join);
+
                     if (joinLeague($data_join) == 1) {
                         header('location: homepage.php');
                     } else {

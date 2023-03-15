@@ -63,8 +63,27 @@ if (empty($_SESSION['user_id'])) {
             $res = simulateMatch($_SESSION['id_league']);
             if ($res['message'] == "1") {
                 header("Refresh:0");
-            } else {
-                echo ('<p class="text-danger">' . $res['message'] . '</p>');
+            } elseif ($res['message'] == "Campionato concluso") {
+                unset($_SESSION['id_squad']);
+                unset($_SESSION['id_league']);
+                echo ('<div class="modal" tabindex="-1">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Campionato concluso</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Inizia un nuovo campionato</p>
+                    </div>
+                    <div class="modal-footer">
+                    <a href="homepage.php">
+                      <button type="button" class="btn btn-primary">Save changes</button>
+                    </a>
+                      </div>
+                  </div>
+                </div>
+              </div>');
             }
         }
         ?>
