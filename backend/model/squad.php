@@ -28,9 +28,7 @@ class Squad
     {
         $sql = "SELECT s.id
         FROM squad s
-        inner join squad_league sl on sl.id_squad =s.id
-        inner join league l on l.id = sl.id_league 
-        Where s.id_user = '" . $id_user . "' and l.status = 0;";
+        Where s.id_user = '" . $id_user . "';";
         return $sql;
     }
     function getSquadByIdAndName($id, $name)

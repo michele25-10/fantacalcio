@@ -110,7 +110,6 @@ if (empty($_SESSION['user_id'])) {
                 'id_user' => $_SESSION['user_id'],
             );
             $res_squad = createSquad($data_squad);
-
             if ($res_squad != "1") {
                 echo ('<p class="text-danger">Errore nella creazione della squadra</p>');
             }
@@ -124,7 +123,6 @@ if (empty($_SESSION['user_id'])) {
                         'id_squad' => $_SESSION['id_squad'],
                         'id_league' => $_GET['id_league'],
                     );
-
                     if (joinLeague($data_join) == 1) {
                         $_SESSION['id_league'] = $_GET['id_league'];
                         echo ('<p class="text-success">La tua squadra è stata iscritta alla lega</p>');
