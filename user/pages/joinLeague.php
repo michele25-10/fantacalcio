@@ -114,20 +114,23 @@ if (empty($_SESSION['user_id'])) {
                 echo ('<p class="text-danger">Errore nella creazione della squadra</p>');
             }
             if ($res_squad == "1") {
-                $id_squad = getSquadId($_SESSION['user_id']);
-                if ($id_squad == "-1") {
-                    echo ('<p class="text-danger">Errore nella creazione della squadra</p>');
-                } else {
-                    $_SESSION['id_squad'] = $id_squad;
-                    $data_join = array(
-                        'id_squad' => $_SESSION['id_squad'],
-                        'id_league' => $_GET['id_league'],
-                    );
-                    if (joinLeague($data_join) == 1) {
-                        $_SESSION['id_league'] = $_GET['id_league'];
-                        echo ('<p class="text-success">La tua squadra è stata iscritta alla lega</p>');
+                $id_squad = getSquadByIdAndStatus($_SESSION['user_id']);
+                if($id_squad == "-2"){
+                    $id_squad = getSquadId($_SESSION['user_id']);
+                    if ($id_squad == "-1") {
+                        echo ('<p class="text-danger">Errore nella creazione della squadra</p>');
                     } else {
-                        echo ('<p class="text-danger">Errore nella iscrizione della tua squadra nella lega</p>');
+                        $_SESSION['id_squad'] = $id_squad;
+                        $data_join = array(
+                            'id_squad' => $_SESSION['id_squad'],
+                            'id_league' => $_GET['id_league'],
+                        );
+                        if (joinLeague($data_join) == 1) {
+                            $_SESSION['id_league'] = $_GET['id_league'];
+                            echo ('<p class="text-success">La tua squadra è stata iscritta alla lega</p>');
+                        } else {
+                            echo ('<p class="text-danger">Errore nella iscrizione della tua squadra nella lega</p>');
+                        }
                     }
                 }
 
