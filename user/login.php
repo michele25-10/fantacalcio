@@ -49,8 +49,9 @@
                     echo ('<p class=text-danger>Email o password errata</p>');
                 } else {
                     $id_squad = getSquadByIdAndStatus($_SESSION['user_id']);
+                    var_dump($id_squad); 
                     if ($id_squad == -1) {
-                        echo '<p class="text-danger">Errore riprova più tardi!</p>';
+                        echo '<p class="text-danger">Errore squadra riprova più tardi!</p>';
                     } elseif ($id_squad == -2) {
                         header('Location: pages/homepage.php');
 

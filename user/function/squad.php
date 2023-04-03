@@ -41,7 +41,7 @@ function getSquadId($id)
     $url = 'http://localhost/fantacalcio/backend/api/squad/getSquadByUserId.php?id_user=' . $id;
 
     $json_data = file_get_contents($url);
-    $decode_data = json_decode($json_data, $assoc = true);
+    $decode_data = json_decode($json_data, $assoc = true); 
     if ($decode_data == "-2") {
         return -2;
     } else {
