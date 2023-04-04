@@ -48,7 +48,7 @@
                 if (login($data) == -1) {
                     echo ('<p class=text-danger>Email o password errata</p>');
                 } else {
-                    $id_squad = getSquadByIdAndStatus($_SESSION['user_id']);
+                    $id_squad = getSquadIdLogin($_SESSION['user_id']);
                     var_dump($id_squad); 
                     if ($id_squad == -1) {
                         echo '<p class="text-danger">Errore squadra riprova più tardi!</p>';

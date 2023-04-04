@@ -70,5 +70,13 @@ class Squad
         $sql = "UPDATE fantacalcio.squad SET score= (SELECT score FROM squad WHERE id = '" . $id_squad . "') + " . $score . " where id='" . $id_squad . "';";
         return $sql;
     }
+    function getSquadIdLogin($id_user){
+        $sql = "SELECT s.id
+        FROM squad s
+        inner join squad_league sl on sl.id_squad =s.id
+        inner join league l on l.id = sl.id_league 
+        Where s.id_user = '".$id_user."' and l.status = 0;"; 
+        return $sql;
+    }
 }
 ?>
